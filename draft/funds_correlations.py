@@ -18,26 +18,60 @@ def parse_performances():
     return result
 
 
-if __name__ == '__main__':
-    perf_list = parse_performances()
-    funds = {}
-    perf = []
-    min_size = 1000
-    names_list = []
-    for index, (name, perf_history) in enumerate(perf_list):
-        funds[index] = name
-        perf_history_size = len(perf_history)
-        if perf_history_size < min_size:
-            min_size = perf_history_size
-        names_list.append(name)
-        perf.append(perf_history[:min_size])
-    corr = numpy.corrcoef(perf)
+def highlight_high_correlation(corr, names_list):
+    result = {}
+    size = len(corr)
+    for i in range(0, size):
+        for j in range(0, size):
+            correlation = corr[i][j]
+            if correlation > 0.8 and i < j:
+                # print('{} || {} || {}'.format(correlation, names_list[i], names_list[j]))
+                result[correlation] = '{} || {}'.format(names_list[i], names_list[j])
+    return result
 
+
+def order_correlations(corr_dict):
+    for corr_val in sorted(corr_dict, reverse=True):
+        print("{:.2g}: {}".format(corr_val, corr_dict[corr_val]))
+
+
+def display_correlation_heatmap(corr, names_list):
     mask = numpy.zeros_like(corr)
     mask[numpy.triu_indices_from(mask)] = True
     legends = names_list
     with seaborn.axes_style("white"):
-        g = seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends, yticklabels=legends)
+        seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends,
+                        yticklabels=legends)
         seaborn.plt.xticks(rotation=30)
         seaborn.plt.yticks(rotation=30)
         seaborn.plt.show()
+
+
+def calculate_corr_matrix():
+    funds = {}
+    perf = []
+    names_list = []
+    min_size = 1000
+    for index, (name, perf_history) in enumerate(perf_list):
+        funds[index] = name
+        perf_history_size = len(perf_history)
+        # print('{} {}'.format(perf_history_size, name))
+        if perf_history_size >= 19:
+            if perf_history_size < min_size:
+                min_size = perf_history_size
+            names_list.append(name)
+            perf.append(perf_history[:min_size])
+    return numpy.corrcoef(perf), names_list, min_size
+
+
+if __name__ == '__main__':
+    perf_list = parse_performances()
+    corr, names_list, min_size = calculate_corr_matrix(perf_list)
+
+    # TODO Idem with lowest
+    high_corr = highlight_high_correlation(corr, names_list)
+    order_correlations(high_corr)
+    # display_correlation_heatmap(corr, names_list)
+    # based on performances by quarter
+    history_years = min_size / 4
+    print('History size: {} years'.format(history_years))
