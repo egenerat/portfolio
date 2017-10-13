@@ -1,3 +1,21 @@
+const mkdirp = require('mkdirp-promise');
+const write = require('fs-writefile-promise/lib/node6');
+
+exports.createFolder = (folderName) => {
+	mkdirp(folderName)
+	.catch(console.error)
+}
+
+exports.saveFile = (filePath, content)=> { 
+  return write(filePath, content)
+    .then(function (filename) {
+      console.log(filename)
+    })   
+    .catch(function (err) {
+      console.error(err)
+    });
+}
+
 exports.formatDate = (date) => {	
 	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay() + 1}`;
 };
