@@ -2,7 +2,7 @@ function sumTop10Holdings(top10Holdings) {
 	let result = 0;
 	top10Holdings.forEach( function(element) {
 		// ["SYMBOL", "Company Ltd", "5.23%"]
-		result += parseFloat(element[2].replace('%', ''));
+		result += parseFloat(element[2].replace('%', '')).toFixed(2);
 	});
 	return result;
 }
