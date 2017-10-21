@@ -17,7 +17,7 @@ exports.saveFile = (filePath, content)=> {
 }
 
 exports.formatDate = (date) => {	
-	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay() + 1}`;
+	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
 exports.transformDictToCsvLine = (dictionaryList) => {
