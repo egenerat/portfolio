@@ -1,5 +1,6 @@
 const mkdirp = require('mkdirp-promise');
 const write = require('fs-writefile-promise/lib/node6');
+const csv = require("fast-csv");
 
 exports.createFolder = (folderName) => {
 	mkdirp(folderName)
@@ -33,3 +34,17 @@ exports.transformToCsv = (listResults) => {
 	  return Promise.reject("empty list");
 	}
 }
+
+exports.readFromCsv = (filePath) => {	
+  let options = {
+		headers: true
+	};
+	csv
+		.fromPath(filePath, options)
+		.on("data", function(data){
+			console.log(data);
+		})
+		.on("end", function(){
+			console.log("done");
+		});
+	}
