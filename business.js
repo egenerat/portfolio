@@ -1,5 +1,5 @@
 "use strict";
-function sumTop10Holdings(top10Holdings) {
+const sumTop10Holdings = (top10Holdings) => {
     let result = 0;
     top10Holdings.forEach( function(element) {
         // ["SYMBOL", "Company Ltd", "5.23%"]
@@ -8,7 +8,7 @@ function sumTop10Holdings(top10Holdings) {
     return result;
 }
 
-exports.filter = (data) => {
+module.exports.filter = (data) => {
     data.forEach( function(element) {
         element.pePb = (element.pe * element.pb).toFixed(1);
         element.forecastPePb = (element.forecastPe * element.forecastPb).toFixed(1);

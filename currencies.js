@@ -6,9 +6,9 @@ const constants = require("constants");
 // http://api.fixer.io/latest?base=GBP
 // http://api.fixer.io/2000-01-03?base=GBP
 
-exports.getFxRates = (base, day) => {
+module.exports.getFxRates = (base, day) => {
     let options = {
-        uri: `http://api.fixer.io/${day}?base=${base}`,
+        uri: `https://api.fixer.io/${day}?base=${base}`,
         headers: constants.HEADERS,
         transform: function (body) {
             return JSON.parse(body);
@@ -16,6 +16,3 @@ exports.getFxRates = (base, day) => {
     };
     return rpn(options);
 };
-
-exports.getFxRates("GBP", "latest")
-    .then(res => console.log(res.rates.EUR));

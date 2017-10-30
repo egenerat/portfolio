@@ -5,12 +5,12 @@ const csv = require("fast-csv");
 const readdir = require("fs-readdir-promise");
 const nodemailer = require("nodemailer");
 
-exports.createFolder = (folderName) => {
-	mkdirp(folderName)
+module.exports.createFolder = (folderName) => {
+    mkdirp(folderName)
         .catch(console.error);
 };
 
-exports.saveFile = (filePath, content)=> { 
+module.exports.saveFile = (filePath, content)=> { 
   return write(filePath, content)
     .then(function (filename) {
             console.log(filename);
@@ -20,34 +20,34 @@ exports.saveFile = (filePath, content)=> {
     });
 };
 
-exports.formatDate = (date) => {	
-	return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+module.exports.formatDate = (date) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
-exports.transformDictToCsvLine = (dictionaryList) => {
+module.exports.transformDictToCsvLine = (dictionaryList) => {
     return dictionaryList.map((dict) => Object.keys(dict).map(k => dict[k]).join(",")).join("\n");
 };
   
-exports.transformToCsv = (listResults) => {
-	if (listResults.length > 0) {
+module.exports.transformToCsv = (listResults) => {
+    if (listResults.length > 0) {
         let header = Object.keys(listResults[0]).join(",");
-	  let body = exports.transformDictToCsvLine(listResults);
+      let body = exports.transformDictToCsvLine(listResults);
         return Promise.resolve(header + "\n" + body);
-	} else {
-	  return Promise.reject("empty list");
-	}
+    } else {
+      return Promise.reject("empty list");
+    }
 };
 
-exports.readFromCsv = (filePath) => {	
+module.exports.readFromCsv = (filePath) => {    
   let options = {
-		headers: true
-	};
-	csv
-		.fromPath(filePath, options)
-		.on("data", function(data){
-			console.log(data);
-		})
-		.on("end", function(){
-			console.log("done");
-		});
-	}
+        headers: true
+    };
+    csv
+        .fromPath(filePath, options)
+        .on("data", function(data){
+            console.log(data);
+        })
+        .on("end", function(){
+            console.log("done");
+        });
+    }
