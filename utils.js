@@ -3,21 +3,20 @@ const mkdirp = require("mkdirp-promise");
 const write = require("fs-writefile-promise/lib/node6");
 const csv = require("fast-csv");
 const readdir = require("fs-readdir-promise");
-const nodemailer = require("nodemailer");
 
 module.exports.createFolder = (folderName) => {
     mkdirp(folderName)
         .catch(console.error);
 };
 
-module.exports.saveFile = (filePath, content)=> { 
-  return write(filePath, content)
-    .then(function (filename) {
+module.exports.saveFile = (filePath, content) => {
+    return write(filePath, content)
+        .then(function (filename) {
             console.log(filename);
-    })   
-    .catch(function (err) {
+        })   
+        .catch(function (err) {
             console.error(err);
-    });
+        });
 };
 
 module.exports.formatDate = (date) => {
@@ -31,23 +30,31 @@ module.exports.transformDictToCsvLine = (dictionaryList) => {
 module.exports.transformToCsv = (listResults) => {
     if (listResults.length > 0) {
         let header = Object.keys(listResults[0]).join(",");
-      let body = exports.transformDictToCsvLine(listResults);
+        let body = exports.transformDictToCsvLine(listResults);
         return Promise.resolve(header + "\n" + body);
     } else {
-      return Promise.reject("empty list");
+        return Promise.reject("empty list");
     }
 };
 
-module.exports.readFromCsv = (filePath) => {    
-  let options = {
-        headers: true
-    };
-    csv
-        .fromPath(filePath, options)
-        .on("data", function(data){
-            console.log(data);
-        })
-        .on("end", function(){
-            console.log("done");
-        });
-    }
+module.exports.readFromCsv = (filePath) => {
+    return new Promise((resolve, reject) => {
+        let result = [];
+        let options = {
+            headers: true
+        };
+        csv
+            .fromPath(filePath, options)
+            .on("data", function(data){
+                result.push(data);
+            })
+            .on("end", function(){
+                return resolve(result);
+            });
+    });
+};
+
+
+module.exports.list_files = (folderPath) => {
+    return readdir(folderPath);
+};
