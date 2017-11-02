@@ -6,7 +6,7 @@ const sumTop10Holdings = (top10Holdings) => {
         result += parseFloat(element[2].replace("%", "")).toFixed(2);
     });
     return result;
-}
+};
 
 module.exports.filter = (data) => {
     data.forEach( function(element) {

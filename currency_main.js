@@ -1,7 +1,7 @@
 "use strict";
 const currencies = require("./currencies");
 
-const interestingCurrencies = ['EUR', 'USD']
+const interestingCurrencies = ["EUR", "USD"];
 
 const computeChanges = (resultList) => {
     // resultList.reduce(() => );
