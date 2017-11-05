@@ -19,7 +19,7 @@ function parsePage(url, extractFunction) {
 
 const exportFile = constants.EXPORT_FOLDER + utils.formatDate(new Date()) + ".csv";
 
-Promise.all(constants.URLS.map((element) => parsePage(element, extractEtfInformation)))
+Promise.all(constants.URLS.map((url) => parsePage(url, extractEtfInformation)))
     .then(business.filter)
     .then(result => utils.transformToCsv(result))
     .then(result => utils.saveFile(exportFile, result));

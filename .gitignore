@@ -1,5 +1,7 @@
 data/
 
+constants.js
+
 .idea/
 .vscode/
 
