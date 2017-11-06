@@ -1,6 +1,7 @@
 data/
 
 constants.js
+parsers/
 
 .idea/
 .vscode/

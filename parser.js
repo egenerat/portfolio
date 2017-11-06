@@ -5,7 +5,7 @@ const business = require("./business");
 const constants = require("./constants");
 const utils = require("./utils");
 
-function parsePage(url, extractFunction) {
+const parsePage = (url, extractFunction) => {
     let options = {
         uri: url,
         headers: constants.HEADERS,
@@ -15,7 +15,7 @@ function parsePage(url, extractFunction) {
     };
     return rpn(options)
         .then(extractFunction);
-}
+};
 
 const exportFile = constants.EXPORT_FOLDER + utils.formatDate(new Date()) + ".csv";
 
