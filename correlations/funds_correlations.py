@@ -7,9 +7,8 @@ def remove_not_values(perf_list):
     return [float(x.replace(',', '.')) for x in perf_list if x != '-' and x != '']
 
 
-def parse_performances():
+def parse_performances(data_file):
     result = []
-    data_file = "data/all_funds_performances.csv"
     with open(data_file, 'r') as f:
         reader = csv.reader(f, delimiter=',', quotechar='"')
         for row in reader:
@@ -18,13 +17,13 @@ def parse_performances():
     return result
 
 
-def highlight_high_correlation(corr, names_list):
+def highlight_high_correlation(corr, names_list, highlight_min):
     result = {}
     size = len(corr)
     for i in range(0, size):
         for j in range(0, size):
             correlation = corr[i][j]
-            if correlation > 0.8 and i < j:
+            if correlation > highlight_min and i < j:
                 # print('{} || {} || {}'.format(correlation, names_list[i], names_list[j]))
                 result[correlation] = '{} || {}'.format(names_list[i], names_list[j])
     return result
@@ -42,12 +41,13 @@ def display_correlation_heatmap(corr, names_list):
     with seaborn.axes_style("white"):
         seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends,
                         yticklabels=legends)
+        # seaborn.heatmap(corr, mask=mask, square=True, center=0, cmap="YlGnBu")
         seaborn.plt.xticks(rotation=30)
         seaborn.plt.yticks(rotation=30)
         seaborn.plt.show()
 
 
-def calculate_corr_matrix():
+def calculate_corr_matrix(perf_list):
     funds = {}
     perf = []
     names_list = []
@@ -56,7 +56,7 @@ def calculate_corr_matrix():
         funds[index] = name
         perf_history_size = len(perf_history)
         # print('{} {}'.format(perf_history_size, name))
-        if perf_history_size >= 19:
+        if perf_history_size >= 4:
             if perf_history_size < min_size:
                 min_size = perf_history_size
             names_list.append(name)
@@ -65,13 +65,15 @@ def calculate_corr_matrix():
 
 
 if __name__ == '__main__':
-    perf_list = parse_performances()
+    perf_list = parse_performances("data/all_funds_performances.csv")
+    # perf_list = parse_performances("data/uk_funds.csv")
     corr, names_list, min_size = calculate_corr_matrix(perf_list)
 
     # TODO Idem with lowest
-    high_corr = highlight_high_correlation(corr, names_list)
+    high_corr = highlight_high_correlation(corr, names_list, -1)
     order_correlations(high_corr)
     # display_correlation_heatmap(corr, names_list)
     # based on performances by quarter
     history_years = min_size / 4
     print('History size: {} years'.format(history_years))
+    display_correlation_heatmap(corr, names_list)
