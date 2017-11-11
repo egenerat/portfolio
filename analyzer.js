@@ -11,6 +11,7 @@ const constructFilePath = (date) => {
 };
 
 const computeChangesEtf = (resultList) => {
+    const CRITERIA = "forecastPe";
     let cheaperList = [];
     let moreExpensiveList = [];
     let ticketList = resultList[0].reduce( (total, elt) => {
@@ -18,14 +19,15 @@ const computeChangesEtf = (resultList) => {
         return total;
     }, []);
     for (const ticket of ticketList) {
+        const CRITERIA = "pe";
         let old = resultList[0].find(x => x.name === ticket);
         let n = resultList[1].find(x => x.name === ticket);
         if (old !== undefined && n !== undefined) {
             // let earningsUpdate = financials.haveEarningsChanged(old.price, old.pe, n.price, n.pe);
             // console.log(ticket + " " + priceVariation);
-            if (financials.hasPeChanged(old.pe, n.pe)) {
-                let change = n.pe / old.pe;
-                if (old.pe > n.pe) {
+            if (!financials.areFloatEqual(old[CRITERIA], n[CRITERIA])) {
+                let change = n[CRITERIA] / old[CRITERIA];
+                if (old[CRITERIA] > n[CRITERIA]) {
                     cheaperList.push({
                         old: old,
                         n: n,
@@ -50,17 +52,18 @@ const computeChangesEtf = (resultList) => {
     });
     return {
         cheaperList: cheaperList,
-        moreExpensiveList: moreExpensiveList
+        moreExpensiveList: moreExpensiveList,
+        criteria: CRITERIA
     };
 };
 
-const displaySubList = (subList) => {
+const displaySubList = (subList, criteria) => {
     let old, n, change;
     for (let e of subList) {
         ({ old, n, change } = e);
         let priceVariation = (n.price / old.price).toFixed(2);
         console.log(n.name + " " + priceVariation);
-        console.log(old.pe + " => " + n.pe);
+        console.log(old[criteria] + " => " + n[criteria]);
         if (change < 1) {
             console.log("↘ " + change.toFixed(2));
         }
@@ -71,15 +74,16 @@ const displaySubList = (subList) => {
 };
 
 const displayResults = (res) => {
-    let cheaperList, moreExpensiveList;
-    ({ cheaperList, moreExpensiveList } = res);
+    let cheaperList, moreExpensiveList, criteria;
+    ({ cheaperList, moreExpensiveList, criteria } = res);
 
+    console.log("Based on " + criteria);
     console.log("============================");
     console.log("Cheaper");
-    displaySubList(cheaperList);
+    displaySubList(cheaperList, criteria);
     console.log("============================");
     console.log("More expensive");
-    displaySubList(moreExpensiveList);
+    displaySubList(moreExpensiveList, criteria);
 };
 
 let path = ["test-2017-10-29", "test-2017-10-30"];

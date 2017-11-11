@@ -11,7 +11,7 @@ module.exports.haveEarningsChanged = (oldPrice, oldPe, newPrice, newPe) => {
     return oldEps !== newEps;
 };
 
-module.exports.hasPeChanged = (oldPe, newPe) => {
-    const margin = 0.01;
-    return newPe < (1 - margin) * oldPe || newPe > (1 + margin) * oldPe;
+module.exports.areFloatEqual = (oldFloat, newFloat) => {
+    const MARGIN = 0.01;
+    return Math.abs(newFloat/oldFloat - 1) < MARGIN;
 };
