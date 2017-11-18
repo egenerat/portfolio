@@ -1,13 +1,14 @@
 "use strict";
 const utils = require("./utils");
 const financials = require("./financials");
+const constants = require("./constants");
 
 const OUTPUT_FOLDER = "data/output/";
 // utils.list_files(OUTPUT_FOLDER)
 //     .then(console.log);
 
 const constructFilePath = (date) => {
-    return Promise.resolve(OUTPUT_FOLDER + date + ".csv");
+    return Promise.resolve(constants.EXPORT_FOLDER + date + ".csv");
 };
 
 const computeChangesEtf = (resultList) => {
