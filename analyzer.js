@@ -20,36 +20,38 @@ const computeChangesEtf = (resultList) => {
         return total;
     }, []);
     for (const ticket of ticketList) {
-        const CRITERIA = "pe";
+        // TODO should be compared over tickets, but were not available in oldest datasets
         let old = resultList[0].find(x => x.name === ticket);
         let n = resultList[1].find(x => x.name === ticket);
         if (old !== undefined && n !== undefined) {
             // let earningsUpdate = financials.haveEarningsChanged(old.price, old.pe, n.price, n.pe);
             // console.log(ticket + " " + priceVariation);
-            if (!financials.areFloatEqual(old[CRITERIA], n[CRITERIA])) {
-                let change = n[CRITERIA] / old[CRITERIA];
-                if (old[CRITERIA] > n[CRITERIA]) {
+            const oldValue = parseFloat(old[CRITERIA]);
+            const newValue = parseFloat(n[CRITERIA]);
+            if (!financials.areFloatEqual(oldValue, newValue)) {
+                let variation = newValue / oldValue;
+                if (variation > 1) {
                     cheaperList.push({
                         old: old,
                         n: n,
-                        change: change
+                        variation: variation
                     });
                 }
                 else {
                     moreExpensiveList.push({
                         old: old,
                         n: n,
-                        change: change
+                        variation: variation
                     });
                 }
             }
         }
     }
     cheaperList.sort(function (a, b) {
-        return a.change - b.change;
+        return a.variation - b.variation;
     });
     moreExpensiveList.sort(function (a, b) {
-        return b.change - a.change;
+        return b.variation - a.variation;
     });
     return {
         cheaperList: cheaperList,
@@ -59,17 +61,17 @@ const computeChangesEtf = (resultList) => {
 };
 
 const displaySubList = (subList, criteria) => {
-    let old, n, change;
+    let old, n, variation;
     for (let e of subList) {
-        ({ old, n, change } = e);
-        let priceVariation = (n.price / old.price).toFixed(2);
+        ({ old, n, variation } = e);
+        let priceVariation = utils.prettyPrintPercentage(n.price / old.price);
         console.log(n.name + " " + priceVariation);
         console.log(old[criteria] + " => " + n[criteria]);
-        if (change < 1) {
-            console.log("↘ " + change.toFixed(2));
+        if (variation < 1) {
+            console.log("↘ " + utils.prettyPrintPercentage(variation));
         }
         else {
-            console.log("↗ " + change.toFixed(2));
+            console.log("↗ " + utils.prettyPrintPercentage(variation));
         }
     }
 };
