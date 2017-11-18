@@ -28,17 +28,16 @@ const computeChangesEtf = (resultList) => {
             // console.log(ticket + " " + priceVariation);
             const oldValue = parseFloat(old[CRITERIA]);
             const newValue = parseFloat(n[CRITERIA]);
+            let listToAppend;
             if (!financials.areFloatEqual(oldValue, newValue)) {
                 let variation = newValue / oldValue;
-                if (variation > 1) {
-                    cheaperList.push({
-                        old: old,
-                        n: n,
-                        variation: variation
-                    });
+                if (variation < 1) {
+                    listToAppend = cheaperList;
                 }
                 else {
-                    moreExpensiveList.push({
+                    listToAppend = moreExpensiveList;
+                }
+                listToAppend.push({
                         old: old,
                         n: n,
                         variation: variation
@@ -46,7 +45,6 @@ const computeChangesEtf = (resultList) => {
                 }
             }
         }
-    }
     cheaperList.sort(function (a, b) {
         return a.variation - b.variation;
     });
