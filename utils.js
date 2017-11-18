@@ -11,10 +11,10 @@ module.exports.createFolder = (folderName) => {
 
 module.exports.saveFile = (filePath, content) => {
     return write(filePath, content)
-        .then(function (filename) {
+        .then((filename) => {
             console.log(filename);
         })   
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
 };
@@ -45,10 +45,10 @@ module.exports.readFromCsv = (filePath) => {
         };
         csv
             .fromPath(filePath, options)
-            .on("data", function(data){
+            .on("data", (data) => {
                 result.push(data);
             })
-            .on("end", function(){
+            .on("end", () => {
                 return resolve(result);
             });
     });
@@ -57,4 +57,8 @@ module.exports.readFromCsv = (filePath) => {
 
 module.exports.list_files = (folderPath) => {
     return readdir(folderPath);
+};
+
+module.exports.prettyPrintPercentage = (floatValue) => {
+    return ((floatValue - 1) * 100).toFixed(2) + "%";
 };

@@ -3,7 +3,6 @@ const utils = require("./utils");
 const financials = require("./financials");
 const constants = require("./constants");
 
-const OUTPUT_FOLDER = "data/output/";
 // utils.list_files(OUTPUT_FOLDER)
 //     .then(console.log);
 
@@ -45,10 +44,10 @@ const computeChangesEtf = (resultList) => {
                 }
             }
         }
-    cheaperList.sort(function (a, b) {
+    cheaperList.sort( (a, b) => {
         return a.variation - b.variation;
     });
-    moreExpensiveList.sort(function (a, b) {
+    moreExpensiveList.sort( (a, b) => {
         return b.variation - a.variation;
     });
     return {

@@ -9,7 +9,7 @@ const parsePage = (url, extractFunction) => {
     let options = {
         uri: url,
         headers: constants.HEADERS,
-        transform: function (body) {
+        transform: (body) => {
             return cheerio.load(body);
         }
     };

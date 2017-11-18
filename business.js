@@ -7,7 +7,7 @@ const sumTop10Holdings = (top10Holdings) => {
 };
 
 module.exports.filter = (data) => {
-    data.forEach( function(element) {
+    data.forEach( (element) => {
         element.pePb = (element.pe * element.pb).toFixed(1);
         element.forecastPePb = (element.forecastPe * element.forecastPb).toFixed(1);
         element.percentageTop10 = sumTop10Holdings(element.top10Holdings).toFixed(2);
