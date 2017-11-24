@@ -5,21 +5,9 @@ const business = require("./business");
 const constants = require("./constants");
 const utils = require("./utils");
 
-const parsePage = (url, extractFunction) => {
-    let options = {
-        uri: url,
-        headers: constants.HEADERS,
-        transform: (body) => {
-            return cheerio.load(body);
-        }
-    };
-    return rpn(options)
-        .then(extractFunction);
-};
-
 const exportFile = constants.EXPORT_FOLDER + utils.formatDate(new Date()) + ".csv";
 
-Promise.all(constants.URLS.map((url) => parsePage(url, extractEtfInformation)))
+Promise.all(constants.URLS.map((url) => utils.parsePage(url, extractEtfInformation)))
     .then(business.filter)
     .then(result => utils.transformToCsv(result))
     .then(result => utils.saveFile(exportFile, result));
