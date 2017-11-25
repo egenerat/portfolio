@@ -39,7 +39,11 @@ module.exports.parsePage = (url, extractFunction) => {
         }
     };
     return rpn(options)
-        .then(extractFunction);
+        .then(extractFunction)
+        .catch((reason) => {
+            console.error(url);
+            console.error(reason.error.message);
+        });
 };
 
 module.exports.formatDate = (date) => {
@@ -48,6 +52,10 @@ module.exports.formatDate = (date) => {
 
 module.exports.transformDictToCsvLine = (dictionaryList) => {
     return dictionaryList.map((dict) => Object.keys(dict).map(k => dict[k]).join(",")).join("\n");
+};
+
+module.exports.removeEmptyValues = (data) => {
+    return data.filter(elt => elt !== undefined);
 };
 
 module.exports.transformToCsv = (listResults) => {

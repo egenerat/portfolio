@@ -7,7 +7,11 @@ const utils = require("./utils");
 
 const exportFile = constants.EXPORT_FOLDER + utils.formatDate(new Date()) + ".csv";
 
-Promise.all(constants.URLS.map((url) => utils.parsePage(url, extractEtfInformation)))
+Promise.all(constants.URLS.map((url) =>
+    utils.parsePage(url, extractEtfInformation)
     .then(business.filter)
+        .catch(console.error)
+))
     .then(result => utils.transformToCsv(result))
-    .then(result => utils.saveFile(exportFile, result));
+    .then(result => utils.saveFile(exportFile, result))
+    .catch(console.error);
