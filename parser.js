@@ -5,6 +5,7 @@ const utils = require("./utils");
 const parserUtils = require("./parser_utils");
 var errors = require("request-promise-native/errors");
 
+
 Promise.all(constants.URLS.map((url) =>
     parserUtils.parsePage(url, extractEtfInformation)
         .then(business.filter)
