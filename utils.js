@@ -1,10 +1,8 @@
 "use strict";
-const cheerio = require("cheerio");
-const constants = require("./constants");
 const csv = require("fast-csv");
 const mkdirp = require("mkdirp-promise");
 const readdir = require("fs-readdir-promise");
-const rpn = require("request-promise-native");
+
 const write = require("fs-writefile-promise/lib/node6");
 
 module.exports.createFolder = (folderName) => {
@@ -28,18 +26,6 @@ module.exports.cleanupStringFloat = (text) => {
 
 module.exports.cleanupText = (text) => {
     return text.replace("\n", "").trim();
-};
-
-module.exports.parsePage = (url, extractFunction) => {
-    let options = {
-        uri: url,
-        headers: constants.HEADERS,
-        transform: (body) => {
-            return cheerio.load(body);
-        }
-    };
-    return rpn(options)
-        .then(extractFunction);
 };
 
 module.exports.formatDate = (date) => {
