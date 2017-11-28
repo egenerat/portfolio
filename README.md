@@ -17,11 +17,16 @@ Parser
 node parser
 ```
 
+NODE_ENV=production node parser
+or
+export NODE_ENV=production
+
 Analyzer
 
 ```
 node analyzer
 ```
+
 
 
 
