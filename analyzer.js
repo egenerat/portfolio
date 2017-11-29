@@ -2,6 +2,7 @@
 const utils = require("./utils");
 const financials = require("./financials");
 const constants = require("./constants");
+var colors = require("colors");
 
 // utils.list_files(OUTPUT_FOLDER)
 //     .then(console.log);
@@ -65,10 +66,10 @@ const displaySubList = (subList, criteria) => {
         console.log(n.name + " " + priceVariation);
         console.log(old[criteria] + " => " + n[criteria]);
         if (variation < 1) {
-            console.log("↘ " + utils.prettyPrintPercentage(variation));
+            console.log(`↘ ${utils.prettyPrintPercentage(variation)}`.green);
         }
         else {
-            console.log("↗ " + utils.prettyPrintPercentage(variation));
+            console.log(`↗ ${utils.prettyPrintPercentage(variation)}`.red);
         }
     }
 };
@@ -77,13 +78,15 @@ const displayResults = (res) => {
     let cheaperList, moreExpensiveList, criteria;
     ({ cheaperList, moreExpensiveList, criteria } = res);
 
-    console.log("Based on " + criteria);
-    console.log("============================");
-    console.log("Cheaper");
+    console.log(`Based on ${criteria}`);
+    if (cheaperList.length > 0) {
+        console.log("============================\nCheaper\n");
     displaySubList(cheaperList, criteria);
-    console.log("============================");
-    console.log("More expensive");
+    }
+    if (moreExpensiveList.length > 0) {
+        console.log("============================\nMore expensive");
     displaySubList(moreExpensiveList, criteria);
+    }
 };
 
 let path = ["test-2017-10-29", "test-2017-10-30"];
