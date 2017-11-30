@@ -28,22 +28,6 @@ module.exports.cleanupText = (text) => {
     return text.replace("\n", "").trim();
 };
 
-module.exports.parsePage = (url, extractFunction) => {
-    let options = {
-        uri: url,
-        headers: constants.HEADERS,
-        transform: (body) => {
-            return cheerio.load(body);
-        }
-    };
-    return rpn(options)
-        .then(extractFunction)
-        .catch((reason) => {
-            console.error(url);
-            console.error(reason.error.message);
-        });
-};
-
 module.exports.formatDate = (date) => {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
