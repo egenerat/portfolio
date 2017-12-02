@@ -12,20 +12,19 @@ const constructFilePath = (date) => {
 };
 
 const computeChangesEtf = (resultList) => {
-    const CRITERIA = "forecastPe";
     let cheaperList = [];
     let moreExpensiveList = [];
-    let ticketList = resultList[0].reduce( (total, elt) => {
+    let tickerList = resultList[0].reduce( (total, elt) => {
         total.push(elt.name);
         return total;
     }, []);
-    for (const ticket of ticketList) {
-        // TODO should be compared over tickets, but were not available in oldest datasets
-        let old = resultList[0].find(x => x.name === ticket);
-        let n = resultList[1].find(x => x.name === ticket);
+    for (const ticker of tickerList) {
+        // TODO should be compared over tickers, but were not available in oldest datasets
+        let old = resultList[0].find(x => x.name === ticker);
+        let n = resultList[1].find(x => x.name === ticker);
         if (old !== undefined && n !== undefined) {
             // let earningsUpdate = financials.haveEarningsChanged(old.price, old.pe, n.price, n.pe);
-            // console.log(ticket + " " + priceVariation);
+            // console.log(ticker + " " + priceVariation);
             const oldValue = parseFloat(old[CRITERIA]);
             const newValue = parseFloat(n[CRITERIA]);
             let listToAppend;
