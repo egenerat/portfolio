@@ -27,5 +27,13 @@ module.exports.parseMultiPages = (urlDict, extractFunctionDict) => {
         promises.push(module.exports.parsePage(urlDict[element], extractFunctionDict[element]));
     });
     return Promise.all(promises)
-        .then(module.exports.aggregate);
+        .then(module.exports.aggregate)
+        .catch(reason => {
+            if (reason.name === "RequestError") {
+                console.log(reason.message);
+            }
+            else if (reason.name === "StatusCodeError") {
+                console.log(`Status ${reason.statusCode}, ${reason.options.uri}`);
+            }
+        });
 };
