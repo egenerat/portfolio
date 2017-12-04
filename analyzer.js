@@ -2,8 +2,16 @@
 const utils = require("./utils");
 const financials = require("./financials");
 const constants = require("./constants");
+const cli = require("cli");
 var colors = require("colors");
 
+const cliArgs = cli.parse({
+    criteria: [ "c", "Criteria to be used for filtering/ordering", "string", "pe" ],  //     --work STRING What kind of work to do
+    begin: [ "b", "First date", "string"],//, "2017-09-24" ],
+    end: [ "e", "End date", "string"]//, "2017-11-25" ],
+});
+let path = [cliArgs.begin, cliArgs.end];
+const CRITERIA = cliArgs.criteria;
 // utils.list_files(OUTPUT_FOLDER)
 //     .then(console.log);
 
@@ -88,8 +96,6 @@ const displayResults = (res) => {
     }
 };
 
-let path = ["test-2017-10-29", "test-2017-10-30"];
-path = ["2017-09-24", "2017-11-4"];
 Promise.all(path
     .map((x) => constructFilePath(x)
         .then(utils.readFromCsv)))
