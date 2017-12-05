@@ -65,8 +65,8 @@ def calculate_corr_matrix(perf_list):
 
 
 if __name__ == '__main__':
-    perf_list = parse_performances("data/all_funds_performances.csv")
-    # perf_list = parse_performances("data/uk_funds.csv")
+    filename = "data/all_funds_performances_per_quarter.csv"
+    perf_list = parse_performances(filename)
     corr, names_list, min_size = calculate_corr_matrix(perf_list)
 
     # TODO Idem with lowest

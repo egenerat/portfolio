@@ -21,6 +21,7 @@
     "request-promise-native": "^1.0.4"
   },
   "devDependencies": {
+    "cli": "^1.0.1",
     "db.js": "^0.15.0",
     "nedb": "^1.8.0"
   }
