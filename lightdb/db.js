@@ -11,3 +11,10 @@ securities.insert({ name: "A", price: 1 }, (err) => {
         });
     });
 });
+
+const insert = () => {
+    return new Promise( (resolve, reject) => {
+        securities.insert({ name: "emile", price: 12 })
+    });
+};
+.then(console.log)
