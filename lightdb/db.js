@@ -1,20 +1,32 @@
 const Nedb = require("nedb");
 
 const securities = new Nedb({ filename: "data/output/data.db", autoload: true });
-// Data insertion
-securities.insert({ name: "A", price: 1 }, (err) => {
-    securities.insert({ name: "B", price: 2 }, (err) => {
-        // Queries
-        securities.find({ price: { $lt: 10 } }, (err, docs) => {
-            // docs is an array containing A and B
-            console.log(docs);
+
+const insert = (obj) => {
+    return new Promise((resolve, reject) => {
+        securities.insert(obj, (err, docs) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(docs);
+            }
         });
     });
-});
+};
 
-const insert = () => {
-    return new Promise( (resolve, reject) => {
-        securities.insert({ name: "emile", price: 12 })
+const find = (filter) => {
+    return new Promise((resolve, reject) => {
+        securities.find(filter, (err, docs) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(docs);
+            }
+        });
     });
 };
-.then(console.log)
+
+insert({ price: 1 })
+    .then(console.log)
+find({ price: { $lt: 10 } })
+    .then(console.log)
