@@ -27,6 +27,6 @@ const find = (filter) => {
 };
 
 insert({ price: 1 })
-    .then(console.log)
+    .then(console.log);
 find({ price: { $lt: 10 } })
-    .then(console.log)
+    .then(console.log);
