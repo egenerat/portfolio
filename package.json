@@ -16,6 +16,7 @@
     "fs-writefile-promise": "^2.0.0",
     "mocha": "^4.0.1",
     "nedb": "^1.8.0",
+    "node-correlation": "^1.0.2",
     "nodemailer": "^4.3.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.2",
@@ -23,7 +24,6 @@
   },
   "devDependencies": {
     "cli": "^1.0.1",
-    "db.js": "^0.15.0",
-    "nedb": "^1.8.0"
+    "colors": "^1.1.2"
   }
 }
