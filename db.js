@@ -26,7 +26,5 @@ const find = (filter) => {
     });
 };
 
-insert({ price: 1 })
-    .then(console.log);
-find({ price: { $lt: 10 } })
-    .then(console.log);
+module.exports.insert = insert;
+module.exports.find = find;
