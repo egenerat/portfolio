@@ -1,6 +1,7 @@
 import csv
 import numpy
 import seaborn
+import matplotlib.pyplot as plt
 
 
 def remove_not_values(perf_list):
@@ -42,9 +43,9 @@ def display_correlation_heatmap(corr, names_list):
         seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends,
                         yticklabels=legends)
         # seaborn.heatmap(corr, mask=mask, square=True, center=0, cmap="YlGnBu")
-        seaborn.plt.xticks(rotation=30)
-        seaborn.plt.yticks(rotation=30)
-        seaborn.plt.show()
+        plt.xticks(rotation=30)
+        plt.yticks(rotation=30)
+        plt.show()
 
 
 def calculate_corr_matrix(perf_list):
