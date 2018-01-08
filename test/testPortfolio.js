@@ -1,14 +1,14 @@
-const parser = require("../portfolio.js");
+const parser = require("../portfolio/portfolio.js");
 
 var assert = require("assert");
 describe("portfolio", () => {
     describe("calculateAverageMetric", () => {
         const portfolio = [{
             ticker: "ABC",
-            qty: 1
+            quantity: 1
         }, {
             ticker: "DEF",
-            qty: 3
+            quantity: 3
         }];
 
         const fundamentals = [{
