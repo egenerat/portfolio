@@ -2,7 +2,7 @@
 const business = require("./business");
 const constants = require("./constants");
 const utils = require("./utils");
-const parserUtils = require("./parser_utils");
+const parserUtils = require("./parsers/parser_utils");
 
 
 Promise.all(constants.URLS.map((url) =>

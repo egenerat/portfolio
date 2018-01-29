@@ -1,4 +1,4 @@
-const parserUtils = require("../parser_utils");
+const parserUtils = require("../parsers/parser_utils");
 
 var assert = require("assert");
 describe("parser utils", () => {
