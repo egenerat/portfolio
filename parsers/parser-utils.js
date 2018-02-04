@@ -37,3 +37,13 @@ module.exports.parseMultiPages = (urlDict, extractFunctionDict) => {
             }
         });
 };
+
+module.exports.extractLinesTable = ($, selector, skipHeader) => {
+    const result = {};
+    const slice_nb = skipHeader !== false ? 1: 0;
+    $(selector).slice(slice_nb).each( function() {
+        const children = $(this).children();
+        result[children.eq(0).text()] = parseFloat(children.eq(1).text());
+    });
+    return result;
+};

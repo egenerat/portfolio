@@ -1,6 +1,7 @@
+"use strict";
 const parser = require("../portfolio.js");
+const assert = require("assert");
 
-var assert = require("assert");
 describe("portfolio", () => {
     describe("calculateAverageMetric", () => {
         const portfolio = [{
