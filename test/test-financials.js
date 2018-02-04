@@ -1,6 +1,7 @@
+"use strict";
 const financials = require("../financials");
+const assert = require("assert");
 
-var assert = require("assert");
 describe("financials", () => {
     describe("detectEarningChanged", () => {
         it("should return true when the earnings have changed", () => {
