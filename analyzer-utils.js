@@ -5,11 +5,11 @@ const constants = require("./constants");
 const financials = require("./financials");
 const utils = require("./utils");
 
-const constructFilePath = (date) => {
+module.exports.constructFilePath = (date) => {
     return Promise.resolve(constants.EXPORT_FOLDER + date + ".csv");
 };
 
-const computeChangesEtf = ([oldSecurities, newSecurities], criteria) => {
+module.exports.computeChangesEtf = ([oldSecurities, newSecurities], criteria) => {
     let cheaperList = [];
     let moreExpensiveList = [];
     let tickerList = oldSecurities.reduce( (total, elt) => {
@@ -56,7 +56,7 @@ const computeChangesEtf = ([oldSecurities, newSecurities], criteria) => {
     };
 };
 
-const displaySubList = (subList, criteria, threshold) => {
+module.exports.displaySubList = (subList, criteria, threshold) => {
     let old, n, variation;
     for (let e of subList) {
         ({ old, n, variation } = e);
@@ -75,7 +75,7 @@ const displaySubList = (subList, criteria, threshold) => {
     }
 };
 
-const displayResults = (res, criteria, threshold) => {
+module.exports.displayResults = (res, criteria, threshold) => {
     let cheaperList, moreExpensiveList;
     ({ cheaperList, moreExpensiveList } = res);
 
@@ -95,8 +95,3 @@ const displayResults = (res, criteria, threshold) => {
         console.log("∅");
     }
 };
-
-module.exports.constructFilePath = constructFilePath;
-module.exports.computeChangesEtf = computeChangesEtf;
-module.exports.displaySubList = displaySubList;
-module.exports.displayResults = displayResults;

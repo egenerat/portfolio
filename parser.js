@@ -2,11 +2,11 @@
 const business = require("./business");
 const constants = require("./constants");
 const utils = require("./utils");
-const parserUtils = require("./parsers/parser_utils");
+const parser_utils = require("./parsers/parser-utils");
 
 
 Promise.all(constants.URLS.map((url) =>
-    parserUtils.parsePage(url, extractEtfInformation)
+    parser_utils.parsePage(url, extractEtfInformation)
         .then(business.filter)
         .catch(reason => {
             if (reason.name === "RequestError") {
