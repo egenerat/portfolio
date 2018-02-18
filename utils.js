@@ -75,3 +75,8 @@ module.exports.list_files = (folderPath) => {
 module.exports.prettyPrintPercentage = (floatValue) => {
     return ((floatValue - 1) * 100).toFixed(2) + "%";
 };
+
+module.exports.strToDate = (str_date) => {
+    const pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+    return new Date(str_date.replace(pattern, "$3-$2-$1"));
+};
