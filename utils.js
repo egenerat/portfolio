@@ -21,11 +21,11 @@ module.exports.saveFile = (filePath, content) => {
 };
 
 module.exports.cleanupStringFloat = (text) => {
-    return parseFloat(text.replace("%", ""));
+    return parseFloat(text.replace("%", "").replace(/,/g, ""));
 };
 
 module.exports.cleanupText = (text) => {
-    return text.replace("\n", "").trim();
+    return text.replace("\n\t", "").trim();
 };
 
 module.exports.formatDate = (date) => {
