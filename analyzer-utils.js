@@ -56,7 +56,7 @@ module.exports.computeChangesEtf = ([oldSecurities, newSecurities], criteria) =>
     };
 };
 
-module.exports.displaySubList = (subList, criteria, threshold) => {
+const displaySubList = (subList, criteria, threshold) => {
     let old, n, variation;
     for (let e of subList) {
         ({ old, n, variation } = e);
@@ -95,3 +95,4 @@ module.exports.displayResults = (res, criteria, threshold) => {
         console.log("∅");
     }
 };
+module.exports.displaySubList = displaySubList;

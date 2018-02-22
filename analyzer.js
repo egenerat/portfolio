@@ -1,6 +1,6 @@
 "use strict";
 
-const analyzerUtils = require("./analyzerUtils");
+const analyzerUtils = require("./analyzer-utils");
 const cli = require("cli");
 const utils = require("./utils");
 

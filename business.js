@@ -1,8 +1,8 @@
 "use strict";
 const sumTop10Holdings = (top10Holdings) => {
-    // ["SYMBOL", "Company Ltd", "5.23%"]
+    // ["SYMBOL", "Company Ltd", 5.23]
     return top10Holdings.reduce( (total, elt) => {
-        return total + parseFloat(elt[2].replace("%", ""));
+        return total + elt[2];
     }, 0);
 };
 
@@ -18,3 +18,4 @@ module.exports.filter = (element) => {
     delete element.top10Holdings;
     return Promise.resolve(element);
 };
+module.exports.sumTop10Holdings = sumTop10Holdings;
