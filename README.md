@@ -9,7 +9,10 @@ npm install
 
 Run tests
 ```
+# Run all the tests
 npm test
+# Run one test
+npm test -- test/test-financials.js
 ```
 
 Parser

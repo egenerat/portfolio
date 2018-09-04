@@ -11,4 +11,23 @@ describe("financials", () => {
             assert.equal(false, financials.haveEarningsChanged(10, 10, 12, 12));
         });
     });
+
+    describe("computeStatistics", () => {
+        it("should return 0 if the list is empty", () => {
+            const securities = [];
+            const result = financials.computeStatistics(securities);
+            assert.equal(0.0, result.averagePe);
+        });
+        it("should return average if several values", () => {
+            const securities = [{
+                pe: 10,
+                "% weight": 10
+            }, {
+                pe: 20,
+                "% weight": 90
+            }];
+            const result = financials.computeStatistics(securities);
+            assert.equal(19, result.averagePe);
+        });
+    });
 });
