@@ -21,7 +21,11 @@ module.exports.saveFile = (filePath, content) => {
 };
 
 module.exports.cleanupStringFloat = (text) => {
-    return parseFloat(text.replace("%", "").replace(/,/g, ""));
+    return parseFloat(
+        text
+            .replace("EUR", "")
+            .replace(/[%$,]/g,"")
+    );
 };
 
 module.exports.cleanupText = (text) => {
