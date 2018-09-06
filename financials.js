@@ -1,8 +1,7 @@
 "use strict";
 module.exports.computeForwardPeRatio = (currentPeRatio, earningsGrowth)=> {
-    // TODO not implemented yet
-    let forwardPeRatio = 0;
-    return 0;
+    let forwardPeRatio = currentPeRatio / (1 + earningsGrowth/100);
+    return forwardPeRatio;
 };
 
 module.exports.haveEarningsChanged = (oldPrice, oldPe, newPrice, newPe) => {
@@ -47,6 +46,7 @@ module.exports.computeStatistics = (securities) => {
         max: max,
         averagePe: averagePe.toFixed(2),
         nbNegativeEarnings: nbNegativeEarnings,
-        totalSecurities: nb
+        totalSecurities: nb,
+        sum_weights: sum_weights
     };
 };

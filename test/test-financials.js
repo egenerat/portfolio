@@ -12,6 +12,12 @@ describe("financials", () => {
         });
     });
 
+    describe("computeForwardPeRatio", () => {
+        it("should compute forward P/E ratio", () => {
+            assert.equal(10, financials.computeForwardPeRatio(11, 10));
+        });
+    });
+
     describe("computeStatistics", () => {
         it("should return 0 if the list is empty", () => {
             const securities = [];
