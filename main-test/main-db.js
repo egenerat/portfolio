@@ -1,6 +1,11 @@
-const db = require("../db");
+const { Database } = require("../db.js");
 
-db.insert([{ price: 123 }, {price: 456}])
+const db = new Database("trash.db");
+// const db2 = new Database("trash.db");
+
+db.insert([{ price: 123 }, {price: 456}, {price: 7890}])
     .then(console.log);
+// db2.insert({ price: 789 })
+//     .then(console.log);
 db.find({ price: { $lt: 1000 } })
     .then(console.log);
