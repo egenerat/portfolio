@@ -1,7 +1,13 @@
 # portfolio
 
+## Output
+One of the objectives is to identify securities that are highly correlated together.
+![Example of output](correlations/picture.png "Example of output")
+
 [![Build Status](https://travis-ci.org/egenerat/portfolio.svg?branch=master)](https://travis-ci.org/egenerat/portfolio)
 
+
+## Local build and run
 Install
 ```
 npm install

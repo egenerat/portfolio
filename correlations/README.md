@@ -4,6 +4,7 @@ sudo apt install python3-tk
 ```
 
 https://seaborn.pydata.org/tutorial/aesthetics.html
+https://seaborn.pydata.org/generated/seaborn.heatmap.html
 
 Local dev
 ```
