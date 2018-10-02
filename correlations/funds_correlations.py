@@ -1,11 +1,12 @@
 import csv
 import numpy
 import seaborn
+import sys
 import matplotlib.pyplot as plt
 
 
 def remove_not_values(perf_list):
-    return [float(x.replace(',', '.')) for x in perf_list if x != '-' and x != '']
+    return [float(x.replace(',', '.')) for x in perf_list if x not in ['-', '']]
 
 
 def parse_performances(data_file):
@@ -18,21 +19,21 @@ def parse_performances(data_file):
     return result
 
 
-def highlight_high_correlation(corr, names_list, highlight_min):
+def highlight_high_correlation(corr, names_list):
     result = {}
     size = len(corr)
-    for i in range(0, size):
-        for j in range(0, size):
-            correlation = corr[i][j]
-            if correlation > highlight_min and i < j:
-                # print('{} || {} || {}'.format(correlation, names_list[i], names_list[j]))
-                result[correlation] = '{} || {}'.format(names_list[i], names_list[j])
+    for i in range(size):
+        for j in range(size):
+            # Not to get duplicates
+            if i < j:
+                result[corr[i][j]] = (names_list[i], names_list[j])
     return result
 
 
-def order_correlations(corr_dict):
+def display_correlations(corr_dict, filter_function):
     for corr_val in sorted(corr_dict, reverse=True):
-        print("{:.2g}: {}".format(corr_val, corr_dict[corr_val]))
+        if filter_function(corr_val):
+            print("{:.2g}: {}".format(corr_val, corr_dict[corr_val]))
 
 
 def display_correlation_heatmap(corr, names_list):
@@ -40,41 +41,44 @@ def display_correlation_heatmap(corr, names_list):
     mask[numpy.triu_indices_from(mask)] = True
     legends = names_list
     with seaborn.axes_style("white"):
-        seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends,
-                        yticklabels=legends)
-        # seaborn.heatmap(corr, mask=mask, square=True, center=0, cmap="YlGnBu")
+        sns_plot = seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends, yticklabels=legends)
         plt.xticks(rotation=30)
         plt.yticks(rotation=30)
-        plt.show()
+        # plt.show()
+        # To save the output as a picture
+        # sns_plot.get_figure().savefig("output.png")
 
 
 def calculate_corr_matrix(perf_list):
-    funds = {}
     perf = []
     names_list = []
-    min_size = 1000
+    min_size = sys.maxsize
     for index, (name, perf_history) in enumerate(perf_list):
-        funds[index] = name
         perf_history_size = len(perf_history)
-        # print('{} {}'.format(perf_history_size, name))
+        # If vector size < 4, we discard it
         if perf_history_size >= 4:
-            if perf_history_size < min_size:
-                min_size = perf_history_size
+            min_size = min(min_size, perf_history_size)
             names_list.append(name)
+            # We normalize the size of the vector
             perf.append(perf_history[:min_size])
     return numpy.corrcoef(perf), names_list, min_size
 
 
-if __name__ == '__main__':
-    filename = "data/all_funds_performances_per_quarter.csv"
+def main(filename):
     perf_list = parse_performances(filename)
     corr, names_list, min_size = calculate_corr_matrix(perf_list)
 
-    # TODO Idem with lowest
-    high_corr = highlight_high_correlation(corr, names_list, -1)
-    order_correlations(high_corr)
-    # display_correlation_heatmap(corr, names_list)
+    high_corr = highlight_high_correlation(corr, names_list)
+    print("Highly correlated securities")
+    display_correlations(high_corr, lambda corr: corr > 0.8)
+    print("\nNegatively correlated securities")
+    display_correlations(high_corr, lambda corr: corr < -0.5)
     # based on performances by quarter
     history_years = min_size / 4
-    print('History size: {} years'.format(history_years))
+    print("\nHistory size: {} years".format(history_years))
     display_correlation_heatmap(corr, names_list)
+
+
+if __name__ == '__main__':
+    FILENAME = "data/portfolio.csv"
+    main(FILENAME)
