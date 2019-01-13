@@ -1,7 +1,7 @@
 "use strict";
-const sumHoldings = (top10Holdings) => {
+const sumHoldings = (holdings) => {
     // ["SYMBOL", "Company Ltd", 5.23]
-    return top10Holdings.reduce( (total, elt) => {
+    return holdings.reduce( (total, elt) => {
         if (Array.isArray(elt)) {
             return total + elt[2];
         }
@@ -23,4 +23,4 @@ module.exports.filter = (element) => {
     delete element.top10Holdings;
     return Promise.resolve(element);
 };
-module.exports.sumTop10Holdings = sumHoldings;
+module.exports.sumHoldings = sumHoldings;
