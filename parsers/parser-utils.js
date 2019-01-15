@@ -3,7 +3,19 @@ const cheerio = require("cheerio");
 const constants = require("../constants/constants.js");
 const rpn = require("request-promise-native");
 
-module.exports.parsePage = (url, extractFunction) => {
+const getPageParser = (url) => {
+    Object.entries(constants.PARSER_MAP).forEach(
+        ([key, value]) => {
+            if (url.includes(key)) {
+                return value;
+            }
+        }
+    );
+    return null;
+}
+
+module.exports.parsePage = (url) => {
+    const extractFunction = getPageParser(url);
     let options = {
         uri: url,
         headers: constants.HEADERS,

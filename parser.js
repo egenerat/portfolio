@@ -6,7 +6,7 @@ const parser_utils = require("./parsers/parser-utils");
 
 
 Promise.all(constants.URLS.map((url) =>
-    parser_utils.parsePage(url, extractEtfInformation)
+    parser_utils.parsePage(url)
         .then(business.filter)
         .catch(reason => {
             if (reason.name === "RequestError") {
