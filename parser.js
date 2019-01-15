@@ -1,6 +1,6 @@
 "use strict";
 const business = require("./business");
-const constants = require("./constants");
+const constants = require("./constants/constants.js");
 const utils = require("./utils");
 const parser_utils = require("./parsers/parser-utils");
 

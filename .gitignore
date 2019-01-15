@@ -1,6 +1,7 @@
 data/
 
 parsers/
+constants/constants-private.js
 
 .idea/
 .vscode/

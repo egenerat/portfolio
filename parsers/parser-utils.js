@@ -1,6 +1,6 @@
 "use strict";
 const cheerio = require("cheerio");
-const constants = require("../constants");
+const constants = require("../constants/constants.js");
 const rpn = require("request-promise-native");
 
 module.exports.parsePage = (url, extractFunction) => {

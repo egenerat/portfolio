@@ -1,7 +1,7 @@
 "use strict";
 
 const colors = require("colors");
-const constants = require("./constants");
+const constants = require("./constants/constants.js");
 const financials = require("./financials");
 const utils = require("./utils");
 

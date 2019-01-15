@@ -1,4 +1,4 @@
-const constants = require("./constants");
+const constants = require("./constants/constants.js");
 const nodemailer = require("nodemailer");
 
 // create reusable transporter object using the default SMTP transport
