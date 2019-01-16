@@ -4,14 +4,9 @@ const constants = require("../constants/constants.js");
 const rpn = require("request-promise-native");
 
 const getPageParser = (url) => {
-    Object.entries(constants.PARSER_MAP).forEach(
-        ([key, value]) => {
-            if (url.includes(key)) {
-                return value;
-            }
-        }
-    );
-    return null;
+    const [pattern, parser] = Object.entries(constants.PARSER_MAP)
+        .find(([key, value]) => url.includes(key));
+    return parser;
 }
 
 module.exports.parsePage = (url) => {

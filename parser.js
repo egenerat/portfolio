@@ -19,5 +19,5 @@ Promise.all(constants.URLS.map((url) =>
 ))
     .then(utils.removeEmptyValues)
     .then(utils.transformToCsv)
-    .then(result => utils.saveFile(constants.exportFile, result))
+    .then(result => utils.saveFile(constants.EXPORT_FILE, result))
     .catch(console.error);
