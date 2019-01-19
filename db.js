@@ -1,6 +1,5 @@
 const Nedb = require("nedb");
-
-const DB_FOLDER = "data/db/";
+const constants = require("./constants/constants.js");
 
 const instances = {};
 
@@ -8,7 +7,7 @@ class Database {
 
     constructor(filename) {
         filename = filename || "data.db";
-        const db_path = DB_FOLDER + filename;
+        const db_path = constants.DB_FOLDER + filename;
         this.db = this.getInstance(db_path);
     }
 
