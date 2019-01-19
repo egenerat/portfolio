@@ -1,30 +1,31 @@
 {
-  "name": "ychart_parser",
+  "name": "portfolio",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "mocha --recursive",
-    "start": "node server.js"
+    "test": "mocha --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egenerat/portfolio.git"
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egenerat/portfolio/issues"
+  },
+  "homepage": "https://github.com/egenerat/portfolio#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "fast-csv": "^2.4.1",
-    "fs-readdir-promise": "^1.0.1",
-    "fs-writefile-promise": "^2.0.0",
-    "mkdirp-promise": "^5.0.1",
-    "mocha": "^4.0.1",
-    "nedb": "^1.8.0",
-    "node-correlation": "^1.0.2",
-    "nodemailer": "^4.3.1",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.2",
-    "request-promise-native": "^1.0.4"
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
-    "cli": "^1.0.1",
-    "colors": "^1.1.2"
+    "mocha": "^5.2.0"
   }
 }

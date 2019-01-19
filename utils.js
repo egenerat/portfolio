@@ -1,17 +1,14 @@
 "use strict";
 const csv = require("fast-csv");
-const mkdirp = require("mkdirp-promise");
-const readdir = require("fs-readdir-promise");
-
-const write = require("fs-writefile-promise/lib/node6");
+const fsPromises = require("fs").promises;
 
 module.exports.createFolder = (folderName) => {
-    mkdirp(folderName)
+    fsPromises.mkdir(folderName, { recursive: true })
         .catch(console.error);
 };
 
 module.exports.saveFile = (filePath, content) => {
-    return write(filePath, content)
+    return fsPromises.writeFile(filePath, content)
         .then((filename) => {
             console.log(filename);
         })
@@ -73,7 +70,7 @@ module.exports.readFromCsv = (filePath) => {
 
 
 module.exports.list_files = (folderPath) => {
-    return readdir(folderPath);
+    return fsPromises.readdir(folderPath);
 };
 
 module.exports.prettyPrintPercentage = (floatValue) => {
