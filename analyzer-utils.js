@@ -1,5 +1,6 @@
 "use strict";
 
+const colors = require("colors/safe");
 const constants = require("./constants/constants.js");
 const financials = require("./financials");
 const utils = require("./utils");
@@ -65,10 +66,10 @@ const displaySubList = (subList, criteria, threshold) => {
             console.log(n.name + " " + priceVariation);
             console.log(old[criteria] + " => " + n[criteria]);
             if (variation < 1) {
-                console.log(`↘ ${utils.prettyPrintPercentage(variation)}`.green);
+                console.log(colors.green(`↘ ${utils.prettyPrintPercentage(variation)}`));
             }
             else {
-                console.log(`↗ ${utils.prettyPrintPercentage(variation)}`.red);
+                console.log(colors.red(`↗ ${utils.prettyPrintPercentage(variation)}`));
             }
         }
     }
