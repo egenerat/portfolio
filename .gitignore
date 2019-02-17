@@ -7,6 +7,8 @@ constants/constants-private.js
 .vscode/
 
 node_modules/
+coverage/
+.nyc_output
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
