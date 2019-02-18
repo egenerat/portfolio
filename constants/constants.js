@@ -10,7 +10,6 @@ else {
     constants = require("./constants-public.js");
 }
 
-module.exports.URLS = constants.URLS;
 module.exports.PARSER_MAP = constants.PARSER_MAP;
 module.exports.EXPORT_FILE = constants.EXPORT_FILE;
 module.exports.EXPORT_FOLDER = constants.EXPORT_FOLDER;
