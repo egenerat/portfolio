@@ -1,9 +1,9 @@
-NODE_ENV=production node analyzer --begin 2018-12-22 --end 2018-12-29 -c price --threshold 2
+NODE_ENV=production node analyzer --begin $1 --end $2 -c price --threshold 2
 
 echo "========================="
 
-NODE_ENV=production node analyzer --begin 2018-12-22 --end 2018-12-29 -c pe --threshold 2
+NODE_ENV=production node analyzer --begin $1 --end $2 -c pe --threshold 2
 
 echo "========================="
 
-NODE_ENV=production node analyzer --begin 2018-12-22 --end 2018-12-29 -c forecastPe --threshold 2
+NODE_ENV=production node analyzer --begin $1 --end $2 -c forecastPe --threshold 2
