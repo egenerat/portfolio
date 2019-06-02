@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 "use strict";
 
 // This will be the next generation parser.
