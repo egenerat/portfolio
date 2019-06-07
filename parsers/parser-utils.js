@@ -17,17 +17,23 @@ const getPageParser = (url) => {
     }
 }
 
+module.exports.openPage = (url, transform = null) => {
+    let options = {
+        uri: url,
+        headers: constants.HEADERS,
+        transform: transform
+    };
+    return rpn(options)
+        .catch(console.error)
+};
+
 module.exports.parsePage = (url) => {
     const extractFunction = getPageParser(url);
     if (extractFunction) {
-        let options = {
-            uri: url,
-            headers: constants.HEADERS,
-            transform: (body) => {
-                return cheerio.load(body);
-            }
+        const transform = (body) => {
+            return cheerio.load(body);
         };
-        return rpn(options)
+        return openPage(url, transform)
             .then(extractFunction)
             .catch(console.error)
     }
