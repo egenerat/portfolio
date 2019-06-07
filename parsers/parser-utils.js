@@ -3,7 +3,7 @@ const cheerio = require("cheerio");
 const constants = require("../constants/constants.js");
 const rpn = require("request-promise-native");
 const logger = require("../logger.js");
-const map = require("./parser-mapping.js");
+const map = require("./mappings/parser-mapping.js");
 
 const getPageParser = (url) => {
     const res = Object.entries(map.PARSER_MAP)
