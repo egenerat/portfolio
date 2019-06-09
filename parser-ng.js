@@ -7,14 +7,23 @@
 
 const { parsePage } = require("./parsers/parser-utils.js");
 const logger = require("./logger.js");
+const program = require("commander");
 
-var args = process.argv.slice(2);
-if (args.length > 0) {
-    args.forEach(url => 
-        parsePage(url)
-            .then(logger.info)
-    );
+let urlValue;
+
+program
+    .version("0.0.1")
+    .arguments("<url>")
+    // .option("-u, --url <value>", "Page URL")
+    .action( (url) => {
+        urlValue = url;
+    })
+    .parse(process.argv);
+
+if (typeof urlValue === "undefined") {
+    console.error("No URL given!");
+    process.exit(1);
 }
-else {
-    console.log("No argument passed");
-}
+
+parsePage(program.url)
+    .then(logger.info);
