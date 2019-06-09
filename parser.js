@@ -1,8 +1,8 @@
 "use strict";
-const business = require("./business");
+const business = require("./business.js");
 const constants = require("./constants/constants.js");
-const utils = require("./utils");
-const parser_utils = require("./parsers/parser-utils");
+const utils = require("./utils.js");
+const parser_utils = require("./parsers/parser-utils.js");
 
 
 Promise.all(constants.URLS.map((url) =>

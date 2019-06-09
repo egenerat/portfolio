@@ -1,10 +1,10 @@
 "use strict";
 
-const { PortfolioSecurity } = require("./portfolio_security");
-const { calculateAverageMetric } = require("./portfolio");
+const { PortfolioSecurity } = require("./portfolio_security.js");
+const { calculateAverageMetric } = require("./portfolio.js");
 
-const analyzerUtils = require("../analyzerUtils");
-const utils = require("../utils");
+const analyzerUtils = require("../analyzerUtils.js");
+const utils = require("../utils.js");
 
 const portfolio = [];
 portfolio.push(new PortfolioSecurity("EEM", 10));

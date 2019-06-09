@@ -2,8 +2,8 @@
 
 const colors = require("colors/safe");
 const constants = require("./constants/constants.js");
-const financials = require("./financials");
-const utils = require("./utils");
+const financials = require("./financials.js");
+const utils = require("./utils.js");
 
 module.exports.constructFilePath = (date) => {
     return Promise.resolve(constants.EXPORT_FOLDER + date + ".csv");

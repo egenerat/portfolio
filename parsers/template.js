@@ -1,7 +1,7 @@
 "use strict";
 // This is a parser template
 
-const { cleanupStringFloat } = require("../utils");
+const { cleanupStringFloat } = require("../utils.js");
 
 module.exports.extractEtfInformation = ($) => {
 

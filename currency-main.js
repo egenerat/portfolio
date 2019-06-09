@@ -1,5 +1,5 @@
 "use strict";
-const currencies = require("./currencies");
+const currencies = require("./currencies.js");
 
 const interestingCurrencies = ["EUR", "USD"];
 

@@ -1,5 +1,5 @@
 "use strict";
-const financials = require("../financials");
+const financials = require("../financials.js");
 const assert = require("assert");
 
 describe("financials", () => {

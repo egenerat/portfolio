@@ -1,8 +1,8 @@
 "use strict";
 
-const analyzerUtils = require("./analyzer-utils");
+const analyzerUtils = require("./analyzer-utils.js");
 const cli = require("cli");
-const utils = require("./utils");
+const utils = require("./utils.js");
 
 const cliArgs = cli.parse({
     criteria: [ "c", "Criteria to be used for filtering/ordering", "string", "pe" ], //--criteria STRING
