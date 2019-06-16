@@ -13,6 +13,7 @@ if (args.length > 0) {
     args.forEach(url => 
         parsePage(url)
             .then(logger.info)
+            .catch(err => logger.error(`${url}: ${err}`))
     );
 }
 else {

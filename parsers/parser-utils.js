@@ -2,22 +2,22 @@
 const cheerio = require("cheerio");
 const constants = require("../constants/constants.js");
 const rpn = require("request-promise-native");
-const logger = require("../logger.js");
 const map = require("./mappings/parser-mapping.js");
 
-const getPageParser = (url) => {
+const getPageParser = ($) => {
+    const head = $("title").text();
     const res = Object.entries(map.PARSER_MAP)
-        .find(([key, value]) => url.includes(key));
+        .find(([key, value]) => head.includes(key));
     if (res) {
         const [pattern, parser] = res;
-        return parser;
+        return Promise.resolve(parser($));
     }
     else {
-        return null;
+        return Promise.reject("No parser found for this page");
     }
 }
 
-module.exports.openPage = (url, transform = null) => {
+const openPage = (url, transform = null) => {
     let options = {
         uri: url,
         headers: constants.HEADERS,
@@ -28,19 +28,11 @@ module.exports.openPage = (url, transform = null) => {
 };
 
 module.exports.parsePage = (url) => {
-    const extractFunction = getPageParser(url);
-    if (extractFunction) {
-        const transform = (body) => {
-            return cheerio.load(body);
-        };
-        return openPage(url, transform)
-            .then(extractFunction)
-            .catch(console.error)
-    }
-    else {
-        logger.error(`No parser found for the url: ${url}`);
-        return Promise.resolve(null);
-    }
+    const transform = (body) => {
+        return cheerio.load(body);
+    };
+    return openPage(url, transform)
+        .then(getPageParser)
 };
 
 module.exports.aggregate = (dictList) => {
