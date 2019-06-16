@@ -26,9 +26,19 @@ Parser
 node parser
 ```
 
+```
 NODE_ENV=production node parser
+```
 or
+```
 export NODE_ENV=production
+node parser
+```
+
+Extract data from one page
+```
+./parser-ng.js <URL>
+```
 
 Analyzer
 
@@ -40,4 +50,4 @@ node analyzer
 
 
 Requirements:
-- Node.js 8.9.1
+- Node.js v10
