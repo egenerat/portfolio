@@ -3,6 +3,7 @@
 const colors = require("colors/safe");
 const constants = require("../config/constants/constants.js");
 const financials = require("./financials.js");
+const logger = require("./logger.js");
 const utils = require("./utils.js");
 
 module.exports.constructFilePath = (date) => {
@@ -63,13 +64,13 @@ const displaySubList = (subList, criteria, threshold) => {
         let priceVariation = utils.prettyPrintPercentage(n.price / old.price);
         // Only display changes over the threshold
         if ( Math.abs(variation - 1) * 100 > threshold ) {
-            console.log(n.name + " " + priceVariation);
-            console.log(old[criteria] + " => " + n[criteria]);
+            logger.info(n.name + " " + priceVariation);
+            logger.info(old[criteria] + " => " + n[criteria]);
             if (variation < 1) {
-                console.log(colors.green(`↘ ${utils.prettyPrintPercentage(variation)}`));
+                logger.info(colors.green(`↘ ${utils.prettyPrintPercentage(variation)}`));
             }
             else {
-                console.log(colors.red(`↗ ${utils.prettyPrintPercentage(variation)}`));
+                logger.info(colors.red(`↗ ${utils.prettyPrintPercentage(variation)}`));
             }
         }
     }
@@ -79,20 +80,20 @@ module.exports.displayResults = (res, criteria, threshold) => {
     let cheaperList, moreExpensiveList;
     ({ cheaperList, moreExpensiveList } = res);
 
-    console.log(`Based on ${criteria}`);
+    logger.info(`Based on ${criteria}`);
     if (cheaperList.length > 0) {
-        console.log("\n============================\nCheaper\n");
+        logger.info("\n============================\nCheaper\n");
         displaySubList(cheaperList, criteria, threshold);
     }
     else {
-        console.log("∅");
+        logger.info("∅");
     }
     if (moreExpensiveList.length > 0) {
-        console.log("\n============================\nMore expensive\n");
+        logger.info("\n============================\nMore expensive\n");
         displaySubList(moreExpensiveList, criteria, threshold);
     }
     else {
-        console.log("∅");
+        logger.info("∅");
     }
 };
 module.exports.displaySubList = displaySubList;
