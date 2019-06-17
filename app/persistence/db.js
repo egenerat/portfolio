@@ -13,10 +13,10 @@ class Database {
 
     getInstance(db_path) {
         if (instances[db_path]) {
-            console.log("retrieve instance");
+            // console.log("retrieve instance");
             return instances[db_path];
         }
-        console.log("create new instance");
+        // console.log("create new instance");
         instances[db_path] = new Nedb({ filename: db_path, autoload: true });
         return instances[db_path];
     }

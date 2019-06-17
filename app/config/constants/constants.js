@@ -1,6 +1,6 @@
 "use strict";
 const fs = require("fs");
-const utils = require("../utils.js");
+const utils = require("../../core/utils.js");
 
 let constants;
 if (fs.existsSync("./constants/constants-private.js", "utf-8")) {

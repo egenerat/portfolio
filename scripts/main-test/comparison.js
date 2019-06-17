@@ -1,5 +1,9 @@
 "use strict";
 
+// In progress
+
+// The purpose of comparison is not to parse any data, but to compare data already extracted and saved for instance in a database.
+// data.js is here to simulate a pre-filled database.
 const data = require("../data.js");
 
 const compareEtfs = (arr) => {
@@ -10,16 +14,16 @@ const compareEtfs = (arr) => {
     for (const c of criteria) {
         // print field name
         let line = `${c.padEnd(25)}|`;
+        let min = undefined;
+        let max = undefined;
         
         // print field value for all the securities
         for (const f of arr) {
-            let val = "";
-            if (c in f) {
-                val = f[c];
-            }
+            const val = f[c];
             line += `${val.toString().padEnd(6)}|`;
+            min = min === undefined ? val : Math.min(min, val);
+            max = max === undefined ? val : Math.max(max, val);
         }
-        console.log(line);
     }
 };
 

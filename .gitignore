@@ -1,7 +1,9 @@
 data/
 
 parsers/
-constants/constants-private.js
+constants-private.js
+parser-mapping-private.js
+main-test/
 
 .idea/
 

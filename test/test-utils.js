@@ -1,5 +1,5 @@
 "use strict";
-const utils = require("../utils.js");
+const utils = require("../app/core/utils.js");
 const assert = require("assert");
 
 describe("utils", () => {

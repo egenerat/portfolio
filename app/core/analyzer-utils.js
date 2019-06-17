@@ -1,7 +1,7 @@
 "use strict";
 
 const colors = require("colors/safe");
-const constants = require("./constants/constants.js");
+const constants = require("../config/constants/constants.js");
 const financials = require("./financials.js");
 const utils = require("./utils.js");
 
