@@ -52,7 +52,7 @@ module.exports.transformToCsv = (listResults) => {
 };
 
 module.exports.readFromCsv = (filePath) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let result = [];
         let options = {
             headers: true
