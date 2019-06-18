@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "parser-ng",
             "program": "${workspaceFolder}/parser-ng.js",
-            "args": [ "https://www.example.com" ]
+            "args": [
+                "https://www.example.com"
+            ]
         }
     ]
 }
