@@ -10,7 +10,7 @@ const getPageParser = ($) => {
     const pattern = Object.keys(map.PARSER_MAP)
         .find(key => head.includes(key));
     if (pattern) {
-        const parser = map.PARSER_MAP.pattern;
+        const parser = map.PARSER_MAP[pattern];
         return Promise.resolve(parser($));
     }
     else {
@@ -33,7 +33,8 @@ module.exports.parsePage = (url) => {
         return cheerio.load(body);
     };
     return openPage(url, transform)
-        .then(getPageParser);
+        .then(getPageParser)
+        .catch(err => logger.error(`${url}: ${err}`));
 };
 
 module.exports.aggregate = (dictList) => {
@@ -42,19 +43,22 @@ module.exports.aggregate = (dictList) => {
     }, {});
 };
 
-module.exports.parseMultiPages = (urlDict) => {
+module.exports.parseMultiPages = (urlList) => {
     let promises = [];
-    Object.keys(urlDict).forEach(element => {
-        promises.push(module.exports.parsePage(urlDict[element]));
+    urlList.forEach(element => {
+        promises.push(module.exports.parsePage(element));
     });
     return Promise.all(promises)
         .then(module.exports.aggregate)
         .catch(reason => {
             if (reason.name === "RequestError") {
-                logger.info(reason.message);
+                logger.error(reason.message);
             }
             else if (reason.name === "StatusCodeError") {
-                logger.info(`Status ${reason.statusCode}, ${reason.options.uri}`);
+                logger.error(`Status ${reason.statusCode}, ${reason.options.uri}`);
+            }
+            else {
+                logger.error(`Status ${reason.statusCode}, ${reason.options.uri}`);
             }
         });
 };

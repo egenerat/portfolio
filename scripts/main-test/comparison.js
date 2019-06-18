@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 "use strict";
 
 // In progress
@@ -5,10 +6,11 @@
 // The purpose of comparison is not to parse any data, but to compare data already extracted and saved for instance in a database.
 // data.js is here to simulate a pre-filled database.
 const data = require("../data.js");
+const logger = require("../../app/core/logger.js");
 
 const compareEtfs = (arr) => {
     const [a, b] = arr;
-    console.log(`${"".padEnd(25)}|${a.ticker.padEnd(6)}|${b.ticker.padEnd(6)}|`);
+    logger.info(`${"".padEnd(25)}|${a.ticker.padEnd(6)}|${b.ticker.padEnd(6)}|`);
     
     const criteria = ["forecastPe", "pb", "dividend", "longTermEarningGrowth", "historicalEarningGrowth", "bookValueGrowth", "cashFlowGrowth", "salesGrowth"];
     for (const c of criteria) {

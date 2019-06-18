@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 "use strict";
 const currencies = require("../business/currencies.js");
 const logger = require("./logger.js");

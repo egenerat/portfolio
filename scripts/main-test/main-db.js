@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const { Database } = require("../db.js");
 const logger = require("./logger.js");
 
