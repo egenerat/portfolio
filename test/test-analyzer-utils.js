@@ -1,5 +1,5 @@
 "use strict";
-const analyzerUtils = require("../analyzer-utils.js");
+const analyzerUtils = require("../app/core/analyzer-utils.js");
 const assert = require("assert");
 
 describe("analyzerUtils", () => {

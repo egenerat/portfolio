@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 "use strict";
 
 const analyzerUtils = require("./analyzer-utils.js");

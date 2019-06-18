@@ -1,19 +1,20 @@
 "use strict";
 const csv = require("fast-csv");
 const fsPromises = require("fs").promises;
+const logger = require("./logger.js");
 
 module.exports.createFolder = (folderName) => {
     fsPromises.mkdir(folderName, { recursive: true })
-        .catch(console.error);
+        .catch(logger.error);
 };
 
 module.exports.saveFile = (filePath, content) => {
     return fsPromises.writeFile(filePath, content)
         .then((filename) => {
-            console.log(filename);
+            logger.info(filename);
         })
         .catch((err) => {
-            console.error(err);
+            logger.error(err);
         });
 };
 

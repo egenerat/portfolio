@@ -1,5 +1,6 @@
 const Nedb = require("nedb");
-const constants = require("./constants/constants.js");
+const constants = require("../config/constants/constants.js");
+// const logger = require("../core/logger.js");
 
 const instances = {};
 
@@ -13,10 +14,10 @@ class Database {
 
     getInstance(db_path) {
         if (instances[db_path]) {
-            console.log("retrieve instance");
+            // logger.info("retrieve instance");
             return instances[db_path];
         }
-        console.log("create new instance");
+        // logger.info("create new instance");
         instances[db_path] = new Nedb({ filename: db_path, autoload: true });
         return instances[db_path];
     }

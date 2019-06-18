@@ -1,5 +1,5 @@
 "use strict";
-const parserUtils = require("../parsers/parser-utils.js");
+const parserUtils = require("../app/parsers/parser-utils.js");
 const assert = require("assert");
 
 describe("parser utils", () => {

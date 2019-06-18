@@ -1,5 +1,5 @@
 "use strict";
-const business = require("../business.js");
+const business = require("../app/core/business.js");
 const assert = require("assert");
 
 describe("business", () => {

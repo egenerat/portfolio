@@ -1,5 +1,5 @@
 "use strict";
-const parser = require("../portfolio.js");
+const parser = require("../app/core/metrics.js");
 const assert = require("assert");
 
 describe("portfolio", () => {

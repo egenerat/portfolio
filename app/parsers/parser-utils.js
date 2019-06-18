@@ -1,21 +1,22 @@
 "use strict";
 const cheerio = require("cheerio");
-const constants = require("../constants/constants.js");
+const constants = require("../config/constants/constants.js");
+const logger = require("../core/logger.js");
 const rpn = require("request-promise-native");
-const map = require("./mappings/parser-mapping.js");
+const map = require("../config/mappings/parser-mapping.js");
 
 const getPageParser = ($) => {
     const head = $("title").text();
-    const res = Object.entries(map.PARSER_MAP)
-        .find(([key, value]) => head.includes(key));
-    if (res) {
-        const [pattern, parser] = res;
+    const pattern = Object.keys(map.PARSER_MAP)
+        .find(key => head.includes(key));
+    if (pattern) {
+        const parser = map.PARSER_MAP[pattern];
         return Promise.resolve(parser($));
     }
     else {
         return Promise.reject("No parser found for this page");
     }
-}
+};
 
 const openPage = (url, transform = null) => {
     let options = {
@@ -24,7 +25,7 @@ const openPage = (url, transform = null) => {
         transform: transform
     };
     return rpn(options)
-        .catch(console.error)
+        .catch(logger.error);
 };
 
 module.exports.parsePage = (url) => {
@@ -33,6 +34,7 @@ module.exports.parsePage = (url) => {
     };
     return openPage(url, transform)
         .then(getPageParser)
+        .catch(err => logger.error(`${url}: ${err}`));
 };
 
 module.exports.aggregate = (dictList) => {
@@ -41,19 +43,22 @@ module.exports.aggregate = (dictList) => {
     }, {});
 };
 
-module.exports.parseMultiPages = (urlDict, extractFunctionDict) => {
+module.exports.parseMultiPages = (urlList) => {
     let promises = [];
-    Object.keys(urlDict).forEach(element => {
-        promises.push(module.exports.parsePage(urlDict[element], extractFunctionDict[element]));
+    urlList.forEach(element => {
+        promises.push(module.exports.parsePage(element));
     });
     return Promise.all(promises)
         .then(module.exports.aggregate)
         .catch(reason => {
             if (reason.name === "RequestError") {
-                console.log(reason.message);
+                logger.error(reason.message);
             }
             else if (reason.name === "StatusCodeError") {
-                console.log(`Status ${reason.statusCode}, ${reason.options.uri}`);
+                logger.error(`Status ${reason.statusCode}, ${reason.options.uri}`);
+            }
+            else {
+                logger.error(`Status ${reason.statusCode}, ${reason.options.uri}`);
             }
         });
 };
