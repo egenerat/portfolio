@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
 from funds_correlations import correlations, parse_performances_from_dict
+import traceback
+
 app = Flask(__name__)
 
 @app.route("/correlations", methods=['POST'])
@@ -10,9 +12,18 @@ def correlation_api():
         return jsonify({
             'error': 'not enough valid data'
         }), 400
-    correlations(perf_list)
+    try:
+        min_size, limiting = correlations(perf_list)
+    except Exception:
+        traceback.print_exc()
+        return jsonify({
+            'error': 'Internal error'
+        }), 500
+
     data = {
-        'correlation': 'OK'
+        'correlation': 'OK',
+        'min_size': min_size,
+        'limiting': limiting
     }
     return jsonify(data)
 

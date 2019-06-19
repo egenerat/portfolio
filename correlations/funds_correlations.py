@@ -23,7 +23,7 @@ def parse_performances_from_dict(securities):
     result = []
     for sec in securities:
         if all(i in sec for i in ["security", "performances"]):
-        result.append((sec["security"], sec["performances"]))
+            result.append((sec["security"], sec["performances"]))
         else:
             print(f"Invalid object {sec}")
     return result
@@ -42,7 +42,8 @@ def highlight_high_correlation(corr, names_list):
 def display_correlations(corr_dict, filter_function):
     for corr_val in sorted(corr_dict, reverse=True):
         if filter_function(corr_val):
-            print("{:.2g}: {}".format(corr_val, corr_dict[corr_val]))
+            [sec_a, sec_b] = corr_dict[corr_val]
+            print("{:.2f}: {:60} {:60}".format(corr_val, sec_a, sec_b))
 
 
 def display_correlation_heatmap(corr, names_list, open_heatmap=False):
@@ -55,7 +56,7 @@ def display_correlation_heatmap(corr, names_list, open_heatmap=False):
         plt.xticks(rotation=30)
         plt.yticks(rotation=30)
         if open_heatmap:
-        plt.show()
+            plt.show()
         else:
             sns_plot.get_figure().savefig("output.png")
 
@@ -64,22 +65,32 @@ def calculate_corr_matrix(perf_list):
     perf = []
     names_list = []
     min_size = sys.maxsize
-    for index, (name, perf_history) in enumerate(perf_list):
+    for _, (name, perf_history) in enumerate(perf_list):
         perf_history_size = len(perf_history)
         # If vector size < 4, we discard it
         if perf_history_size >= 4:
             min_size = min(min_size, perf_history_size)
             names_list.append(name)
-            # We normalize the size of the vector
-            perf.append(perf_history[:min_size])
+            perf.append(perf_history)
     if len(perf) < 2:
         raise Exception("Cannot compute correlations: not enough securities")
-    return numpy.corrcoef(perf), names_list, min_size
+
+    # We normalize the size of all the vectors
+    normalized_performances = []
+    limiting = []
+    for index, val in enumerate(perf):
+        normalized_performances.append(val[:min_size])
+        if len(val) == min_size:
+            limiting.append(names_list[index])
+    print(f"Limiting: {min_size} quarters")
+    for i in limiting:
+        print(i)
+    return numpy.corrcoef(normalized_performances), names_list, min_size, limiting
 
 # Example input
 # [('Security name 1', [2.32, 5.43, 4.65, 2.98, -1.15]), ('Security name 2', [9.47, 3.47, 3.1, 6.75, -7.63])
 def correlations(performances):
-    corr, names_list, min_size = calculate_corr_matrix(performances)
+    corr, names_list, min_size, limiting = calculate_corr_matrix(performances)
     high_corr = highlight_high_correlation(corr, names_list)
     print("Highly correlated securities")
     display_correlations(high_corr, lambda corr: corr > 0.8)
@@ -89,6 +100,7 @@ def correlations(performances):
     history_years = min_size / 4
     print("\nHistory size: {} years".format(history_years))
     display_correlation_heatmap(corr, names_list)
+    return min_size, limiting
 
 
 if __name__ == '__main__':

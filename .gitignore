@@ -4,6 +4,7 @@ parsers/
 constants-private.js
 parser-mapping-private.js
 main-test/
+output.png
 
 .idea/
 
