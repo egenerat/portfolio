@@ -19,9 +19,8 @@ def parse_performances_from_csv_file(data_file):
                 result.append((row[0], remove_not_values(row[1:])))
     return result
 
-def parse_performances_from_json(json_string):
+def parse_performances_from_dict(securities):
     result = []
-    securities = json.loads(json_string)
     for sec in securities:
         result.append((sec["security"], sec["performances"]))
     return result
@@ -74,7 +73,7 @@ def calculate_corr_matrix(perf_list):
 
 # Example input
 # [('Security name 1', [2.32, 5.43, 4.65, 2.98, -1.15]), ('Security name 2', [9.47, 3.47, 3.1, 6.75, -7.63])
-def main(performances):
+def correlations(performances):
     corr, names_list, min_size = calculate_corr_matrix(performances)
     high_corr = highlight_high_correlation(corr, names_list)
     print("Highly correlated securities")
@@ -90,5 +89,6 @@ def main(performances):
 if __name__ == '__main__':
     FILENAME = "data/portfolio.csv"
     perf_list = parse_performances_from_csv_file(FILENAME)
-    # perf_list = parse_performances_from_json('[{"security": "name1", "performances": [1, 2, 3, 4]}, {"security": "name2", "performances": [2, 4, 7, 9]}]')
-    main(perf_list)
+    # perf_json = json.loads('[{"security": "name1", "performances": [1, 2, 3, 4]}, {"security": "name2", "performances": [2, 4, 7, 9]}]')
+    # perf_list = parse_performances_from_json(perf_json)
+    correlations(perf_list)

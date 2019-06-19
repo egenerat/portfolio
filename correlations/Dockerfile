@@ -1,8 +1,8 @@
 FROM python:3.7-alpine
 
-ADD server.py requirements.txt /app/
+ADD server.py funds_correlations.py requirements-api.txt requirements-correlations.txt /app/
 WORKDIR app
-RUN pip install -r requirements.txt
+RUN pip install -r requirements-api.txt -r requirements-correlations.txt
 
 ENTRYPOINT [ "python" ]
 
