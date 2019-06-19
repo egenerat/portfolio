@@ -24,8 +24,7 @@ const openPage = (url, transform = null) => {
         headers: constants.HEADERS,
         transform: transform
     };
-    return rpn(options)
-        .catch(logger.error);
+    return rpn(options);
 };
 
 module.exports.parsePage = (url) => {
@@ -34,7 +33,7 @@ module.exports.parsePage = (url) => {
     };
     return openPage(url, transform)
         .then(getPageParser)
-        .catch(err => logger.error(`${url}: ${err}`));
+        .catch(err => logger.error(`${url}\n${err}`));
 };
 
 module.exports.aggregate = (dictList) => {

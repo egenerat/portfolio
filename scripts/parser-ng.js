@@ -3,9 +3,9 @@
 "use strict";
 
 const { Database } = require("../app/persistence/db.js");
-const { parsePage } = require("./parsers/parser-utils.js");
-const logger = require("./logger.js");
-const utils = require("./utils.js");
+const { parsePage } = require("../app/parsers/parser-utils.js");
+const logger = require("../app/core/logger.js");
+const utils = require("../app/core/utils.js");
 
 
 const portfolioDb = new Database("portfolio.db");

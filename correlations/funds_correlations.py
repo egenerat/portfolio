@@ -22,7 +22,10 @@ def parse_performances_from_csv_file(data_file):
 def parse_performances_from_dict(securities):
     result = []
     for sec in securities:
+        if all(i in sec for i in ["security", "performances"]):
         result.append((sec["security"], sec["performances"]))
+        else:
+            print(f"Invalid object {sec}")
     return result
 
 def highlight_high_correlation(corr, names_list):
@@ -42,17 +45,19 @@ def display_correlations(corr_dict, filter_function):
             print("{:.2g}: {}".format(corr_val, corr_dict[corr_val]))
 
 
-def display_correlation_heatmap(corr, names_list):
+def display_correlation_heatmap(corr, names_list, open_heatmap=False):
     mask = numpy.zeros_like(corr)
     mask[numpy.triu_indices_from(mask)] = True
     legends = names_list
     with seaborn.axes_style("white"):
+        seaborn.set(rc={'figure.figsize':(40,30)})
         sns_plot = seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends, yticklabels=legends)
         plt.xticks(rotation=30)
         plt.yticks(rotation=30)
+        if open_heatmap:
         plt.show()
-        # To save the output as a picture
-        # sns_plot.get_figure().savefig("output.png")
+        else:
+            sns_plot.get_figure().savefig("output.png")
 
 
 def calculate_corr_matrix(perf_list):
