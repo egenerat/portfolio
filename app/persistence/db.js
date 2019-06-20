@@ -48,6 +48,18 @@ class Database {
             });
         });
     }
+
+    findOne(filter) {
+        return new Promise((resolve, reject) => {
+            this.db.findOne(filter, (err, docs) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(docs);
+                }
+            });
+        });
+    }
 }
 
 module.exports.Database = Database;
