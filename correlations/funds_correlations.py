@@ -82,7 +82,7 @@ def calculate_corr_matrix(perf_list):
         normalized_performances.append(val[:min_size])
         if len(val) == min_size:
             limiting.append(names_list[index])
-    print(f"Limiting: {min_size} quarters")
+    print(f"\nLimiting: {min_size} quarters")
     for i in limiting:
         print(i)
     return numpy.corrcoef(normalized_performances), names_list, min_size, limiting
@@ -92,7 +92,7 @@ def calculate_corr_matrix(perf_list):
 def correlations(performances):
     corr, names_list, min_size, limiting = calculate_corr_matrix(performances)
     high_corr = highlight_high_correlation(corr, names_list)
-    print("Highly correlated securities")
+    print("\nHighly correlated securities")
     display_correlations(high_corr, lambda corr: corr > 0.8)
     print("\nNegatively correlated securities")
     display_correlations(high_corr, lambda corr: corr < -0.5)

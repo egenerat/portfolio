@@ -1,4 +1,4 @@
-const constants = require("./constants/constants.js");
+const constants = require("../app/config/constants/constants.js");
 const logger = require("./logger.js");
 const nodemailer = require("nodemailer");
 

@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 "use strict";
-const currencies = require("../business/currencies.js");
-const logger = require("./logger.js");
+const currencies = require("../app/core/currencies.js");
+const logger = require("../app/core/logger.js");
 
 const interestingCurrencies = ["EUR", "USD"];
 
@@ -20,4 +20,5 @@ Promise.all(dates
         currencies.getFxRates("GBP", date)
     )
 )
-    .then(computeChanges);
+    .then(computeChanges)
+    .catch(err => logger.error(err.message));

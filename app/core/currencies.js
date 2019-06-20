@@ -1,6 +1,6 @@
 "use strict";
 const rpn = require("request-promise-native");
-const constants = require("./constants/constants.js");
+const constants = require("../config/constants/constants.js");
 // Documentation: http://fixer.io/
 
 // http://api.fixer.io/latest?base=GBP

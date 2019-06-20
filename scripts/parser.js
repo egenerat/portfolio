@@ -1,10 +1,10 @@
 #! /usr/bin/env node
 "use strict";
-const business = require("./business.js");
-const constants = require("./constants/constants.js");
-const logger = require("./logger.js");
-const utils = require("./utils.js");
-const parser_utils = require("./parsers/parser-utils.js");
+const business = require("../app/core/business.js");
+const constants = require("../app/config/constants/constants.js");
+const logger = require("../app/core/logger.js");
+const utils = require("../app/core/utils.js");
+const parser_utils = require("../app/parsers/parser-utils.js");
 
 
 Promise.all(constants.URLS.map((url) =>

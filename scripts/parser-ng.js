@@ -12,7 +12,7 @@ const portfolioDb = new Database("portfolio.db");
 const securitiesDb = new Database("securities.db");
 const today = utils.formatDate(new Date());
 
-var args = process.argv.slice(2);
+const args = process.argv.slice(2);
 if (args.length > 0) {
     args.forEach(url => 
         parsePage(url)

@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 "use strict";
 
-const constants = require("./constants/constants.js");
-const utils = require("./utils.js");
-const { Database } = require("./db.js");
+const constants = require("../app/config/constants/constants.js");
+const utils = require("../app/core/utils.js");
+const { Database } = require("../app/persistence/db.js");
 
 const db = new Database("csv-import.db");
 utils.list_files(constants.EXPORT_FOLDER)
