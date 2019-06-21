@@ -3,7 +3,7 @@ const fs = require("fs");
 const utils = require("../../core/utils.js");
 
 let constants;
-if (fs.existsSync("./constants/constants-private.js", "utf-8")) {
+if (fs.existsSync("./app/config/constants/constants-private.js", "utf-8")) {
     constants = require("./constants-private.js");
 }
 else {
@@ -14,9 +14,10 @@ module.exports.EXPORT_FILE = constants.EXPORT_FILE;
 module.exports.EXPORT_FOLDER = constants.EXPORT_FOLDER;
 module.exports.DB_FOLDER = constants.DB_FOLDER;
 module.exports.HEADERS = constants.HEADERS;
+module.exports.CORRELATION_BLACKLIST = constants.CORRELATION_BLACKLIST;
 
+// Variables depending on the environment
 const OUTPUT_FOLDER = "data/output";
-
 if (process.env.NODE_ENV === "production") {
     module.exports.URLS = constants.ETF_URLS;
     module.exports.EXPORT_FOLDER = `${OUTPUT_FOLDER}/prod/csv/`;

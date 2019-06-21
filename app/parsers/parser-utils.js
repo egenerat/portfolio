@@ -1,8 +1,7 @@
 "use strict";
 const cheerio = require("cheerio");
-const constants = require("../config/constants/constants.js");
 const logger = require("../core/logger.js");
-const rpn = require("request-promise-native");
+const http = require("../core/http.js");
 const map = require("../config/mappings/parser-mapping.js");
 
 const getPageParser = ($) => {
@@ -18,20 +17,11 @@ const getPageParser = ($) => {
     }
 };
 
-const openPage = (url, transform = null) => {
-    let options = {
-        uri: url,
-        headers: constants.HEADERS,
-        transform: transform
-    };
-    return rpn(options);
-};
-
 module.exports.parsePage = (url) => {
     const transform = (body) => {
         return cheerio.load(body);
     };
-    return openPage(url, transform)
+    return http.openPage(url, transform)
         .then(getPageParser)
         .catch(err => logger.error(`${url}\n${err}`));
 };
