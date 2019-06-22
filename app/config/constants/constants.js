@@ -16,6 +16,11 @@ module.exports.DB_FOLDER = constants.DB_FOLDER;
 module.exports.HEADERS = constants.HEADERS;
 module.exports.CORRELATION_BLACKLIST = constants.CORRELATION_BLACKLIST;
 
+// Email
+module.exports.EMAIL_ACCOUNT_USERNAME = constants.EMAIL_ACCOUNT_USERNAME;
+module.exports.EMAIL_ACCOUNT_PASSWORD = constants.EMAIL_ACCOUNT_PASSWORD;
+module.exports.EMAIL_TO = constants.EMAIL_TO;
+
 // Variables depending on the environment
 const OUTPUT_FOLDER = "data/output";
 if (process.env.NODE_ENV === "production") {

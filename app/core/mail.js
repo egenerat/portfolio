@@ -1,9 +1,9 @@
-const constants = require("../app/config/constants/constants.js");
+const constants = require("../config/constants/constants.js");
 const logger = require("./logger.js");
 const nodemailer = require("nodemailer");
 
 // create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
         user: constants.EMAIL_ACCOUNT_USERNAME,
@@ -11,14 +11,13 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-
-const sendEmail = (htmlBody) => {
+const sendEmail = (date, htmlBody) => {
     // setup email data with unicode symbols
     let mailOptions = {
         from: `"Portfolio" <${constants.EMAIL_ACCOUNT_USERNAME}>`,
         to: constants.EMAIL_TO,
-        subject: "Hello",
-        text: "Hello world",
+        subject: "Portfolio 1st of November 2017",
+        text: "Portfolio 1st of November 2017",
         html: htmlBody
     };
 
@@ -27,27 +26,27 @@ const sendEmail = (htmlBody) => {
         if (error) {
             return logger.info(error);
         }
-        logger.info("Message sent: %s", info.messageId);
-        // Preview only available when sending through an Ethereal account
-        // logger.info("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
-        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+        logger.info(`Message ${info.messageId} sent to ${info.envelope.to}`);
     });
 };
 
-const main = () => {
-    let htmlBody = `<h1>Portfolio 1st of November 2017</h1>
+const generateEmailBody = (date, data) => {
+    data = data || {foo: "Gigasoft: +99%"};
+    return `<h1>Portfolio ${date}</h1>
     <h2>Highlights</h2>
+    <h3>Price changes</h3>
     <ul>
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li>
+        <li>ABC +10%</li>
+        <li>DEF +5%</li>
+        <li>ZZZ -23%</li>
+        <li>${data.foo}</li>
     </ul>
     <h2>Details</h2>
     <h2>Currencies</h2>`;
-    sendEmail(htmlBody);
 };
 
-main();
-module.exports.sendEmail = sendEmail;
+module.exports.send = (date, data) => {
+    date = date || "1st of November 2017";
+    const htmlBody = generateEmailBody(date, data);
+    sendEmail(date, htmlBody);
+};
