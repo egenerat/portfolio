@@ -9,4 +9,15 @@ else {
     mapping = require("./parser-mapping-public.js");
 }
 
-module.exports.PARSER_MAP = mapping.PARSER_MAP;
+module.exports.getPageParser = ($) => {
+    const head = $("title").text();
+    const pattern = Object.keys(mapping)
+        .find(key => head.includes(key));
+    if (pattern) {
+        const parser = map[pattern];
+        return Promise.resolve(parser($));
+    }
+    else {
+        return Promise.reject("No parser found for this page");
+    }
+};
