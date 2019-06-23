@@ -35,3 +35,4 @@ else {
 }
 
 module.exports.EXPORT_FILE = module.exports.EXPORT_FOLDER + utils.formatDate(new Date()) + ".csv";
+module.exports.CORRELATION_URI = "http://localhost:5000/correlations";

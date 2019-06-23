@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask, jsonify, request
 from funds_correlations import correlations, parse_performances_from_dict
 import traceback
@@ -13,7 +14,7 @@ def correlation_api():
             'error': 'not enough valid data'
         }), 400
     try:
-        min_size, limiting = correlations(perf_list)
+        corr, min_size, limiting = correlations(perf_list)
     except Exception:
         traceback.print_exc()
         return jsonify({
@@ -21,7 +22,7 @@ def correlation_api():
         }), 500
 
     data = {
-        'correlation': 'OK',
+        'correlations': corr,
         'min_size': min_size,
         'limiting': limiting
     }

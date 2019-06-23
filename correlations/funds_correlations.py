@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import csv
 import numpy
 import seaborn
@@ -28,14 +29,14 @@ def parse_performances_from_dict(securities):
             print(f"Invalid object {sec}")
     return result
 
-def highlight_high_correlation(corr, names_list):
-    result = {}
+def correlations_as_list(corr, names_list):
+    result = []
     size = len(corr)
     for i in range(size):
         for j in range(size):
             # Not to get duplicates
             if i < j:
-                result[corr[i][j]] = (names_list[i], names_list[j])
+                result.append( (corr[i][j], (names_list[i], names_list[j])) )
     return result
 
 
@@ -46,22 +47,22 @@ def display_correlations(corr_dict, filter_function):
             print("{:.2f}: {:60} {:60}".format(corr_val, sec_a, sec_b))
 
 
-def display_correlation_heatmap(corr, names_list, open_heatmap=False):
+def display_correlation_heatmap(corr, names_list, api_mode):
     mask = numpy.zeros_like(corr)
     mask[numpy.triu_indices_from(mask)] = True
     legends = names_list
     with seaborn.axes_style("white"):
         seaborn.set(rc={'figure.figsize':(40,30)})
         sns_plot = seaborn.heatmap(corr, mask=mask, square=True, center=0, annot=True, cmap="YlGnBu", xticklabels=legends, yticklabels=legends)
-        plt.xticks(rotation=30)
+        plt.xticks(rotation=30, ha='right')
         plt.yticks(rotation=30)
-        if open_heatmap:
-            plt.show()
-        else:
+        if api_mode:
             sns_plot.get_figure().savefig("output.png")
+        else:
+            plt.show()
 
 
-def calculate_corr_matrix(perf_list):
+def calculate_corr_matrix(perf_list, api_mode):
     perf = []
     names_list = []
     min_size = sys.maxsize
@@ -82,25 +83,28 @@ def calculate_corr_matrix(perf_list):
         normalized_performances.append(val[:min_size])
         if len(val) == min_size:
             limiting.append(names_list[index])
-    print(f"\nLimiting: {min_size} quarters")
-    for i in limiting:
-        print(i)
+    if not api_mode:
+        print(f"\nLimiting: {min_size} quarters")
+        for i in limiting:
+            print(i)
     return numpy.corrcoef(normalized_performances), names_list, min_size, limiting
 
 # Example input
 # [('Security name 1', [2.32, 5.43, 4.65, 2.98, -1.15]), ('Security name 2', [9.47, 3.47, 3.1, 6.75, -7.63])
-def correlations(performances):
-    corr, names_list, min_size, limiting = calculate_corr_matrix(performances)
-    high_corr = highlight_high_correlation(corr, names_list)
-    print("\nHighly correlated securities")
-    display_correlations(high_corr, lambda corr: corr > 0.8)
-    print("\nNegatively correlated securities")
-    display_correlations(high_corr, lambda corr: corr < -0.5)
-    # based on performances by quarter
-    history_years = min_size / 4
-    print("\nHistory size: {} years".format(history_years))
-    display_correlation_heatmap(corr, names_list)
-    return min_size, limiting
+# api_mode: does not print nicely the results in the console, does not open the plot
+def correlations(performances, api_mode=True):
+    corr, names_list, min_size, limiting = calculate_corr_matrix(performances, api_mode)
+    corr_list = correlations_as_list(corr, names_list)
+    if not api_mode:
+        print("\nHighly correlated securities")
+        display_correlations(corr_list, lambda corr: corr > 0.8)
+        print("\nNegatively correlated securities")
+        display_correlations(corr_list, lambda corr: corr < -0.5)
+        # based on performances by quarter
+        history_years = min_size / 4
+        print("\nHistory size: {} years".format(history_years))
+    display_correlation_heatmap(corr, names_list, api_mode)
+    return corr_list, min_size, limiting
 
 
 if __name__ == '__main__':
@@ -108,4 +112,4 @@ if __name__ == '__main__':
     perf_list = parse_performances_from_csv_file(FILENAME)
     # perf_json = json.loads('[{"security": "name1", "performances": [1, 2, 3, 4]}, {"security": "name2", "performances": [2, 4, 7, 9]}]')
     # perf_list = parse_performances_from_json(perf_json)
-    correlations(perf_list)
+    correlations(perf_list, False)
