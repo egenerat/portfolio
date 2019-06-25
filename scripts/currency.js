@@ -21,7 +21,7 @@ const base = "GBP";
 const interestingCurrencies = ["EUR", "USD"];
 let dates;
 const args = process.argv.slice(2);
-if (args.length == 2) {
+if (args.length === 2) {
     dates = args;
 }
 else {
