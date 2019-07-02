@@ -37,9 +37,9 @@ class Database {
         });
     }
 
-    find(filter) {
+    find(filter, fields) {
         return new Promise((resolve, reject) => {
-            this.db.find(filter, (err, docs) => {
+            this.db.find(filter, fields, (err, docs) => {
                 if (err) {
                     reject(err);
                 } else {
