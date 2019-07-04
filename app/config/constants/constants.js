@@ -15,6 +15,7 @@ module.exports.EXPORT_FOLDER = constants.EXPORT_FOLDER;
 module.exports.DB_FOLDER = constants.DB_FOLDER;
 module.exports.HEADERS = constants.HEADERS;
 module.exports.CORRELATION_BLACKLIST = constants.CORRELATION_BLACKLIST;
+module.exports.PARSER_BLACKLIST = constants.PARSER_BLACKLIST;
 
 // Email
 module.exports.EMAIL_ACCOUNT_USERNAME = constants.EMAIL_ACCOUNT_USERNAME;
