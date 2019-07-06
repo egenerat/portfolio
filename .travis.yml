@@ -1,7 +1,10 @@
 language: node_js
 node_js:
   - "10"
+services:
+  - docker
 script:
   - npm run lint
   - npm install
   - npm test
+  - cd correlations/ && docker build .

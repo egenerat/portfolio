@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.7
 
 ADD server.py funds_correlations.py requirements-api.txt requirements-correlations.txt /app/
 WORKDIR app
