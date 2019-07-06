@@ -14,7 +14,7 @@ module.exports.getPageParser = ($) => {
     const pattern = Object.keys(mapping)
         .find(key => head.includes(key));
     if (pattern) {
-        const parser = map[pattern];
+        const parser = mapping[pattern];
         return Promise.resolve(parser($));
     }
     else {
