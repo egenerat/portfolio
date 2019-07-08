@@ -1,4 +1,17 @@
 "use strict";
+
+module.exports.computeReturnMetrics = (returns) => {
+    const cumulatedPerformance = returns.reduce( (accumulator, currentValue) => {
+        return accumulator * (1 + (currentValue / 100));
+    }, 1);
+    return {
+        lastQuarter: returns[returns.length - 1],
+        bestQuarter: Math.max(...returns),
+        worstQuarter: Math.min(...returns),
+        cumulatedPerformance: cumulatedPerformance
+    };
+};
+
 module.exports.computeForwardPeRatio = (currentPeRatio, earningsGrowth)=> {
     let forwardPeRatio = currentPeRatio / (1 + earningsGrowth/100);
     return forwardPeRatio;

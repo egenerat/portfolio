@@ -2,6 +2,7 @@
 "use strict";
 
 const logger = require("../app/core/logger.js");
+const financials = require("../app/core/financials.js");
 const { Database } = require("../app/persistence/db.js");
 const { compareEtfs } = require("../app/core/comparison-utils.js");
 const { correlations } = require("../app/core/correlations.js");
@@ -21,6 +22,10 @@ if (args.length === 2) {
             });
     }))
         .then(securities => securities.filter(x => x !== undefined))
+        // Enrich the data
+        .then(securities => securities.map(sec => {
+            return {...sec, ...financials.computeReturnMetrics(sec.quarterlyReturns) };
+        }))
         .then(securities => {
             if (securities.length >= 2) {
                 compareEtfs(securities);

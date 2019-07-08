@@ -2,10 +2,6 @@
 const colors = require("colors/safe");
 const logger = require("./logger.js");
 
-const computeReturnMetrics = (returns) => {
-    return returns[0];
-};
-
 module.exports.compareEtfs = (arr) => {
     const [a, b] = arr;
 
@@ -14,7 +10,7 @@ module.exports.compareEtfs = (arr) => {
     logger.info(`${"".padEnd(COLUMN_SMALL_WIDTH)}|${a.key.padEnd(COLUMN_WIDTH)}|${b.key.padEnd(COLUMN_WIDTH)}|`);
     
     const criteria = ["forecastPe", "pb", "dividend", "longTermEarningGrowth", "historicalEarningGrowth", "bookValueGrowth",
-        "cashFlowGrowth", "salesGrowth"];
+        "cashFlowGrowth", "salesGrowth", "lastQuarter", "bestQuarter", "worstQuarter", "cumulatedPerformance"];
     for (const c of criteria) {
         // print field name
         let line = `${c.padEnd(COLUMN_SMALL_WIDTH)}|`;
@@ -34,7 +30,4 @@ module.exports.compareEtfs = (arr) => {
 
         logger.info(line);
     }
-
-    logger.info(computeReturnMetrics(a.quarterlyReturns));
 };
-module.exports.computeReturnMetrics = computeReturnMetrics;
