@@ -26,7 +26,16 @@ module.exports.compareEtfs = (arr) => {
         }
 
         // Print the statistics for the criteria
-        line += colors.yellow(`${( ((max/min) - 1) * 100 ).toFixed(0)}%`);
+        const difference = ( ((max/min) - 1) * 100 ).toFixed(0);
+        if (difference >= 5) {
+            line += colors.green(`+${difference}%`);
+        }
+        else if (difference <= -5) {
+            line += colors.red(`${difference}%`);
+        }
+        else {
+            line += colors.yellow(`${difference}%`);
+        }          
 
         logger.info(line);
     }
