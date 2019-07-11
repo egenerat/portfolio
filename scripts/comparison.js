@@ -29,6 +29,7 @@ if (args.length === 2) {
         .then(securities => {
             if (securities.length >= 2) {
                 compareEtfs(securities);
+                logger.info("");
                 correlations(securities);
             }
             else {
