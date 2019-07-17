@@ -9,15 +9,20 @@ else {
     mapping = require("./parser-mapping-public.js");
 }
 
-module.exports.getPageParser = ($) => {
+module.exports.getPageParser = ($, map = mapping) => {
     const head = $("title").text();
-    const pattern = Object.keys(mapping)
-        .find(key => head.includes(key));
-    if (pattern) {
-        const parser = mapping[pattern];
-        return Promise.resolve(parser($));
+    if (head) {
+        const pattern = Object.keys(map)
+            .find(key => head.includes(key));
+        if (pattern) {
+            const parser = map[pattern];
+            return Promise.resolve(parser($));
+        }
+        else {
+            return Promise.reject("No parser found for this page");
+        }
     }
     else {
-        return Promise.reject("No parser found for this page");
+        return Promise.reject("The text is empty");
     }
 };
