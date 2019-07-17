@@ -34,7 +34,7 @@ if (args.length > 0) {
                         }
                     }
                     else {
-                        logger.log(x);
+                        logger.info(x);
                     }
                 }
             })

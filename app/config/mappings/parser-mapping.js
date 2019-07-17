@@ -3,10 +3,10 @@ const fs = require("fs");
 
 let mapping;
 if (fs.existsSync("./app/config/mappings/parser-mapping-private.js", "utf-8")) {
-    mapping = require("./parser-mapping-private.js");
+    mapping = require("./parser-mapping-private.js").PARSER_MAP;
 }
 else {
-    mapping = require("./parser-mapping-public.js");
+    mapping = require("./parser-mapping-public.js").PARSER_MAP;
 }
 
 module.exports.getPageParser = ($, map = mapping) => {
