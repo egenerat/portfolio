@@ -25,10 +25,17 @@ describe("parser mapping", () => {
                 extracted: "the"
             });
         });
-        it("should reject if there is no parser for this page", () => {
+        it("should reject if there are no parsers for this page", () => {
+            const mapping = {
+                "blah blah blah": parsingFunction
+            };
+            return expect(parserMapping.getPageParser(page, mapping)).to.eventually
+                .be.rejectedWith("No matching parser found for this page");
+        });
+        it("should reject if there are no parser declared", () => {
             const emptyMapping = {};
             return expect(parserMapping.getPageParser(page, emptyMapping)).to.eventually
-                .be.rejectedWith("No parser found for this page");
+                .be.rejectedWith("No parser defined, please check your configuration files");
         });
         it("should reject if the page has no content", () => {
             const emptyPage = () => {

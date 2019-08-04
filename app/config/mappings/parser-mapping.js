@@ -12,14 +12,19 @@ else {
 module.exports.getPageParser = ($, map = mapping) => {
     const head = $("title").text();
     if (head) {
-        const pattern = Object.keys(map)
-            .find(key => head.includes(key));
-        if (pattern) {
-            const parser = map[pattern];
-            return Promise.resolve(parser($));
+        const keys = Object.keys(map);
+        if (keys.length > 0) {
+            const pattern = keys.find(key => head.includes(key));
+            if (pattern) {
+                const parser = map[pattern];
+                return Promise.resolve(parser($));
+            }
+            else {
+                return Promise.reject("No matching parser found for this page");
+            }
         }
         else {
-            return Promise.reject("No parser found for this page");
+            return Promise.reject("No parser defined, please check your configuration files");
         }
     }
     else {
