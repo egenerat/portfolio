@@ -3,6 +3,7 @@ const fs = require("fs");
 
 let mapping;
 if (fs.existsSync("./app/config/mappings/parser-mapping-private.js", "utf-8")) {
+    // This file is part of .gitignore
     mapping = require("./parser-mapping-private.js").PARSER_MAP;
 }
 else {

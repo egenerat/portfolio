@@ -4,6 +4,7 @@ const utils = require("../../core/utils.js");
 
 let constants;
 if (fs.existsSync("./app/config/constants/constants-private.js", "utf-8")) {
+    // This file is part of .gitignore
     constants = require("./constants-private.js");
 }
 else {
