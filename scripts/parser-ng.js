@@ -23,7 +23,7 @@ let save = cliArgs.save;
 const url = cliArgs.url;
 const portfolio = cliArgs.portfolio;
 
-if (url !== null) { 
+if (url !== null) {
     parsePage(url)
         .then(x => {
             if (x !== undefined) {
