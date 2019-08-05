@@ -41,7 +41,7 @@ if (url !== null) {
                 }
             }
         })
-        .catch(err => logger.error(`${url}: ${err}`))
+        .catch(err => logger.error(`${url}: ${err}`));
 }
 else if (portfolio !== null) {
     portfolioDb.findMostRecent({portfolioName: portfolio})
