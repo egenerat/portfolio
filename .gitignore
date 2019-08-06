@@ -6,6 +6,8 @@ parser-mapping-private.js
 main-test/
 output.png
 
+*.tar.gz
+
 .idea/
 
 node_modules/
