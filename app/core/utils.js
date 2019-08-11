@@ -53,7 +53,7 @@ module.exports.transformToCsv = (listResults) => {
 };
 
 module.exports.readFromCsv = (filePath) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         let result = [];
         let options = {
             headers: true
@@ -65,6 +65,9 @@ module.exports.readFromCsv = (filePath) => {
             })
             .on("end", () => {
                 return resolve(result);
+            })
+            .on("error", (error) => {
+                return reject(`Error when parsing ${filePath}\n${error.message}`);
             });
     });
 };
