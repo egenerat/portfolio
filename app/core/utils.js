@@ -1,5 +1,6 @@
 "use strict";
 const csv = require("fast-csv");
+const fs = require("fs");
 const fsPromises = require("fs").promises;
 const logger = require("./logger.js");
 
@@ -55,11 +56,8 @@ module.exports.transformToCsv = (listResults) => {
 module.exports.readFromCsv = (filePath) => {
     return new Promise((resolve, reject) => {
         let result = [];
-        let options = {
-            headers: true
-        };
-        csv
-            .fromPath(filePath, options)
+        fs.createReadStream(filePath)
+            .pipe(csv.parse({ headers: true }))
             .on("data", (data) => {
                 result.push(data);
             })
