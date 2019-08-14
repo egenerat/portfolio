@@ -11,7 +11,15 @@ module.exports.parsePage = (url) => {
     };
     return http.openPage(url, transform)
         .then(getPageParser)
-        .catch(err => logger.error(`Error opening ${url}: ${err.statusCode} ${err.name}`));
+        .catch(err => {
+            if (err.statusCode) {
+                logger.error(`Error opening ${url}: ${err.statusCode} ${err.name}`);
+            }
+            else {
+                // For instance if no matching parser found
+                logger.error(`Error opening ${url}: ${err}`);
+            }
+        });
 };
 
 module.exports.aggregate = (dictList) => {

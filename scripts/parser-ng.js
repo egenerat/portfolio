@@ -62,7 +62,8 @@ else if (portfolio !== null) {
                     }
                 })
                 .catch(logger.error);
-        });
+        })
+        .catch(logger.error);
 }
 else {
     logger.warning("No argument passed");
