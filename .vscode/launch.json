@@ -48,7 +48,11 @@
             "type": "node",
             "request": "launch",
             "name": "analyzer-ng",
-            "program": "${workspaceFolder}/scripts/analyzer-ng.js"
+            "program": "${workspaceFolder}/scripts/analyzer-ng.js",
+            "args": [
+                "--begin", "foo",
+                "--end", "bar"
+            ]
         }
     ]
 }
