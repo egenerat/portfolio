@@ -29,11 +29,26 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "parser-ng",
-            "program": "${workspaceFolder}/parser-ng.js",
+            "name": "parser-ng -u url",
+            "program": "${workspaceFolder}/scripts/parser-ng.js",
             "args": [
-                "https://www.example.com"
+                "-u", "https://www.example.com"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "parser-ng -p portfolio",
+            "program": "${workspaceFolder}/scripts/parser-ng.js",
+            "args": [
+                "-p", "foo"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "analyzer-ng",
+            "program": "${workspaceFolder}/scripts/analyzer-ng.js"
         }
     ]
 }
