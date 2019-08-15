@@ -10,12 +10,12 @@ const parser_utils = require("../app/parsers/parser-utils.js");
 Promise.all(constants.URLS.map((url) =>
     parser_utils.parsePage(url)
         .then(business.filter)
-        .catch(reason => {
-            if (reason.name === "RequestError") {
-                logger.info(reason.message);
+        .catch(err => {
+            if (err.name === "RequestError") {
+                logger.info(err.message);
             }
-            else if (reason.name === "StatusCodeError") {
-                logger.info(`Status ${reason.statusCode}, ${reason.options.uri}`);
+            else if (err.name === "StatusCodeError") {
+                logger.info(`Status ${err.statusCode}, ${err.options.uri}`);
             }
         })
 ))
