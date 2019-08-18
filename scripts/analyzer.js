@@ -1,9 +1,10 @@
 #! /usr/bin/env node
 "use strict";
 
-const analyzerUtils = require("./analyzer-utils.js");
+const analyzerUtils = require("../app/core/analyzer-utils.js");
 const cli = require("cli");
-const utils = require("./utils.js");
+const logger = require("../app/core/logger.js");
+const utils = require("../app/core/utils.js");
 
 const cliArgs = cli.parse({
     criteria: [ "c", "Criteria to be used for filtering/ordering", "string", "pe" ], //--criteria STRING
@@ -35,5 +36,5 @@ if (checkCliArguments(cliArgs) ) {
             .then(utils.readFromCsv)))
         .then(res => analyzerUtils.computeChangesEtf(res, criteria))
         .then(res => analyzerUtils.displayResults(res, criteria, cliArgs.threshold))
-        .catch(cli.error);
+        .catch(logger.error);
 }

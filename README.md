@@ -8,7 +8,13 @@ One of the objectives is to identify securities that are highly correlated toget
 
 
 ## Local build and run
-Install
+
+
+### Requirements:
+- Node.js v10
+
+
+### Install
 ```
 npm install
 ```
@@ -21,33 +27,29 @@ npm test
 npm test -- test/test-financials.js
 ```
 
-Parser
+### Parser
+With test data
 ```
-node parser
+./scripts/parser.js
 ```
 
+With production data
 ```
-NODE_ENV=production node parser
+NODE_ENV=production ./scripts/parser.js
 ```
 or
 ```
 export NODE_ENV=production
-node parser
+./scripts/parser.js
 ```
 
 Extract data from one page
 ```
-./parser-ng.js <URL>
+./scripts/parser-ng.js <URL>
 ```
 
-Analyzer
+### Analyzer
 
 ```
-node analyzer
+./scripts/analyzer.js --begin <date> --end <date>
 ```
-
-
-
-
-Requirements:
-- Node.js v10
