@@ -4,7 +4,7 @@
 One of the objectives is to identify securities that are highly correlated together.
 ![Example of output](correlations/picture.png "Example of output")
 
-[![Build Status](https://travis-ci.org/egenerat/portfolio.svg?branch=master)](https://travis-ci.org/egenerat/portfolio)
+[![Build Status](https://www.travis-ci.com/egenerat/portfolio.svg?branch=master)](https://www.travis-ci.com/egenerat/portfolio)
 
 
 ## Local build and run
