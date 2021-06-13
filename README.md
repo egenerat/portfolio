@@ -53,3 +53,9 @@ Extract data from one page
 ```
 ./scripts/analyzer.js --begin <date> --end <date>
 ```
+
+## Correlations
+```
+pip install -r correlations/requirements-correlations.txt -r correlations/requirements-api.txt
+./correlations/server.py
+```
