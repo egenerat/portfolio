@@ -49,14 +49,14 @@ class Database {
         });
     }
 
-    findMostRecent(filter, failIfEmpty) {
+    findMostRecent(filter, failIfEmpty=true) {
         return new Promise((resolve, reject) => {
             this.db.find(filter).sort({ date: -1 }).limit(1).exec( (err, docs) => {
                 if (err) {
                     reject(err);
                 } else {
-                    if (docs === null && failIfEmpty) {
-                        reject(`No document found ${JSON.stringify(filter)}`);
+                    if (failIfEmpty && (docs === null || docs.length === 0) ) {
+                        reject(`No document found for filter ${JSON.stringify(filter)}`);
                     }
                     resolve(docs[0]);
                 }
